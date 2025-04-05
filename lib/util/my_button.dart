@@ -19,6 +19,8 @@ class MyButton extends StatelessWidget {
       buttunColor = Colors.red;
     }else if(child == '='){
       buttunColor = Colors.deepPurple;
+    }else if(child == ' '){
+      buttunColor = Colors.transparent;
     }
 
     return Padding(

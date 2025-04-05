@@ -55,7 +55,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
           ),
           ListTile(
-            title: const Text('Toplama Oyunu'),
+            title: const Text('Toplama Oyunu',),
             onTap: () {
               Navigator.pop(context); // drawer'ı kapat
               // bulunduğumuz sayfa zaten burası

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'const.dart';
 import 'custom_drawer.dart';
+import 'package:math_game_for_kids/util/result_message.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,10 +14,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<String> numberPad = [
-    '7', '8', '9', 'C',
+    '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
-    '1', '2', '3', '=',
-    '0',
+    '7', '8', '9', '=',
+    ' ','0',' ',
   ];
 
   int numberA = 1;
@@ -49,48 +50,50 @@ class _HomePageState extends State<HomePage> {
   }
 
   void checkResult() {
-    if (numberA + numberB == int.tryParse(userAnswer)) {
+    if (numberA + numberB == int.parse(userAnswer)) {
       showDialog(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.green,
-            content: Container(
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text('Correct!', style: WhiteTextStyle),
-                  GestureDetector(
-                    onTap: goToNextQuestion,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.green[300],
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Icon(Icons.arrow_forward, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          return ResultMessage(
+            message: 'Correct!',
+            onTap: goToNextQuestion,
+            icon: Icons.arrow_forward,
           );
         },
       );
     } else {
-      // yanlışsa sadece log
-      print('incorrect!');
+      showDialog(
+        context: context,
+        builder: (context) {
+          return ResultMessage(
+            message: 'Sorry try again!',
+            onTap: goToBackQuestion,
+            icon: Icons.rotate_left,
+          );
+        },
+      );
     }
   }
 
+
   void goToNextQuestion() {
     Navigator.of(context).pop();
+
     setState(() {
       userAnswer = '';
+
       numberA = randomNumber.nextInt(99) + 1;
       numberB = randomNumber.nextInt(99) + 1;
     });
+  }
+
+  void goToBackQuestion(){
+    Navigator.of(context).pop();
+
+    setState(() {
+      userAnswer = '';
+    });
+
   }
 
   @override
@@ -136,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               child: GridView.builder(
                 shrinkWrap: true,
                 itemCount: numberPad.length,
-                physics: const NeverScrollableScrollPhysics(),
+                //physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                 itemBuilder: (context, index) {
                   return MyButton(
