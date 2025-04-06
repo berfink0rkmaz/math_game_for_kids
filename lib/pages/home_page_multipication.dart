@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
 import '../preferences_service.dart';
-import '../const.dart';
 import '../custom_drawer.dart';
 
 class HomePageMul extends StatefulWidget {
@@ -41,8 +40,8 @@ class _HomePageState extends State<HomePageMul> {
       });
     });
 
-    numberA = randomNumber.nextInt(99) + 1;
-    numberB = randomNumber.nextInt(99) + 1;
+    numberA = randomNumber.nextInt(19) + 1;
+    numberB = randomNumber.nextInt(19) + 1;
   }
 
   void buttonTapped(String button) {
@@ -95,8 +94,8 @@ class _HomePageState extends State<HomePageMul> {
     Navigator.of(context).pop();
     setState(() {
       userAnswer = '';
-      numberA = randomNumber.nextInt(99) + 1;
-      numberB = randomNumber.nextInt(99) + 1;
+      numberA = randomNumber.nextInt(19) + 1;
+      numberB = randomNumber.nextInt(19) + 1;
     });
   }
 
@@ -131,7 +130,7 @@ class _HomePageState extends State<HomePageMul> {
             ),
             alignment: Alignment.center,
             child: Text(
-              '$numberA * $numberB = $userAnswer',
+              '$numberA x $numberB = $userAnswer',
               style: const TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,

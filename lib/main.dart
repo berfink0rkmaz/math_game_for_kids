@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/multiplication': (context) => const HomePageMul(),
-        '/subtraction': (context) => const HomePageSubtraction(),
-        '/division': (context) => const HomePageDivision(),
+        '/subtraction': (context) => const HomePageSub(),
+        '/division': (context) => const HomePageDiv(),
       },
     );
   }

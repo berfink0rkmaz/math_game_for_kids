@@ -2,18 +2,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
-import '../const.dart';
 import '../custom_drawer.dart';
 import '../preferences_service.dart';
 
-class HomePageDivision extends StatefulWidget {
-  const HomePageDivision({super.key});
+class HomePageDiv extends StatefulWidget {
+  const HomePageDiv({super.key});
 
   @override
-  State<HomePageDivision> createState() => _HomePageDivisionState();
+  State<HomePageDiv> createState() => _HomePageDivisionState();
 }
 
-class _HomePageDivisionState extends State<HomePageDivision> {
+class _HomePageDivisionState extends State<HomePageDiv> {
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',

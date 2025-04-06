@@ -180,6 +180,8 @@ class _HomePageState extends State<HomePage> {
 import 'package:flutter/material.dart';
 import 'home_page_addition.dart';
 import 'home_page_multipication.dart';
+import 'home_page_division.dart';
+import 'home_page_substraction.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -225,6 +227,30 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: Text('Çarpma Oyunu'),
+            ),
+            SizedBox(height: 20), // Butonlar arasındaki boşluk
+            // Bölme Oyunu Butonu
+            ElevatedButton(
+              onPressed: () {
+                // Bölme oyununa git
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageDiv()),
+                );
+              },
+              child: Text('Bölme Oyunu'),
+            ),
+            SizedBox(height: 20), // Butonlar arasındaki boşluk
+            // Çıkarma Oyunu Butonu
+            ElevatedButton(
+              onPressed: () {
+                // Çıkarma oyununa git
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePageSub()),
+                );
+              },
+              child: Text('Çıkarma Oyunu'),
             ),
           ],
         ),

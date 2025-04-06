@@ -2,18 +2,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
-import '../const.dart';
 import '../custom_drawer.dart';
 import '../preferences_service.dart';
 
-class HomePageSubtraction extends StatefulWidget {
-  const HomePageSubtraction({super.key});
+class HomePageSub extends StatefulWidget {
+  const HomePageSub({super.key});
 
   @override
-  State<HomePageSubtraction> createState() => _HomePageSubtractionState();
+  State<HomePageSub> createState() => _HomePageSubtractionState();
 }
 
-class _HomePageSubtractionState extends State<HomePageSubtraction> {
+class _HomePageSubtractionState extends State<HomePageSub> {
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
