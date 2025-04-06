@@ -24,30 +24,37 @@ class _HomePageDivisionState extends State<HomePageDivision> {
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
-
   int correctCount = 0;
   int wrongCount = 0;
 
+  late String currentUser;
   final PreferencesService _preferencesService = PreferencesService();
-
-  var randomNumber = Random();
+  final Random randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
-    _preferencesService.loadScore().then((scores) {
-      setState(() {
-        correctCount = scores['correct']!;
-        wrongCount = scores['wrong']!;
-      });
-    });
+    loadUserAndScores();
     generateNewQuestion();
   }
 
+  void loadUserAndScores() async {
+    final credentials = await _preferencesService.loadCredentials();
+    final username = credentials['username'] ?? 'default';
+
+    final scores = await _preferencesService.loadScoreForUser(username);
+
+    setState(() {
+      currentUser = username;
+      correctCount = scores['correct']!;
+      wrongCount = scores['wrong']!;
+    });
+  }
+
   void generateNewQuestion() {
-    numberB = randomNumber.nextInt(9) + 1; // 1-9 arası (sıfır hariç)
-    int result = randomNumber.nextInt(9) + 1; // 1-9 arası
-    numberA = numberB * result; // bölünebilmesi için tam sayı üret
+    numberB = randomNumber.nextInt(9) + 1; // 1-9 arası (0 olmasın)
+    int result = randomNumber.nextInt(9) + 1;
+    numberA = numberB * result; // tam bölünebilir olsun
   }
 
   void buttonTapped(String button) {
@@ -69,7 +76,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
   void checkResult() {
     if (numberA ~/ numberB == int.tryParse(userAnswer)) {
       correctCount++;
-      _preferencesService.saveScore(correctCount, wrongCount);
+      _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
       showDialog(
         context: context,
         builder: (context) {
@@ -82,7 +89,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
       );
     } else {
       wrongCount++;
-      _preferencesService.saveScore(correctCount, wrongCount);
+      _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
       showDialog(
         context: context,
         builder: (context) {
@@ -116,33 +123,30 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doğru: $correctCount | Yanlış: $wrongCount"),
-        backgroundColor: Color(0xFFBBDEFB),
+        backgroundColor: const Color(0xFFBBDEFB),
         foregroundColor: Colors.black87,
       ),
       drawer: const CustomDrawer(),
-      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
+      backgroundColor: const Color(0xFFFFF3E0),
       body: Column(
         children: [
           Container(
             height: 200,
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFFC8E6C9), // pastel nane yeşili
+              color: Color(0xFFC8E6C9),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
             ),
             alignment: Alignment.center,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Text(
-                '$numberA ÷ $numberB = $userAnswer',
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF2E7D32), // koyu yeşil
-                ),
+            child: Text(
+              '$numberA ÷ $numberB = $userAnswer',
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2E7D32),
               ),
             ),
           ),
@@ -159,7 +163,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
                   return MyButton(
                     child: numberPad[index],
                     onTap: () => buttonTapped(numberPad[index]),
-                    backgroundColor: const Color(0xFFFFECB3), // pastel vanilya sarı
+                    backgroundColor: const Color(0xFFFFECB3),
                     textColor: Colors.black87,
                   );
                 },
