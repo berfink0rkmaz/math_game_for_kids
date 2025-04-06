@@ -2,17 +2,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
+import '../const.dart';
 import '../custom_drawer.dart';
 import '../preferences_service.dart';
 
-class HomePageDiv extends StatefulWidget {
-  const HomePageDiv({super.key});
+class HomePageAdd extends StatefulWidget {
+  const HomePageAdd({super.key});
 
   @override
-  State<HomePageDiv> createState() => _HomePageDivisionState();
+  State<HomePageAdd> createState() => _HomePageState();
 }
 
-class _HomePageDivisionState extends State<HomePageDiv> {
+class _HomePageState extends State<HomePageAdd> {
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
@@ -23,37 +24,25 @@ class _HomePageDivisionState extends State<HomePageDiv> {
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
+
   int correctCount = 0;
   int wrongCount = 0;
 
-  late String currentUser;
   final PreferencesService _preferencesService = PreferencesService();
-  final Random randomNumber = Random();
+  var randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
-    loadUserAndScores();
-    generateNewQuestion();
-  }
-
-  void loadUserAndScores() async {
-    final credentials = await _preferencesService.loadCredentials();
-    final username = credentials['username'] ?? 'default';
-
-    final scores = await _preferencesService.loadScoreForUser(username);
-
-    setState(() {
-      currentUser = username;
-      correctCount = scores['correct']!;
-      wrongCount = scores['wrong']!;
+    _preferencesService.loadScore().then((scores) {
+      setState(() {
+        correctCount = scores['correct']!;
+        wrongCount = scores['wrong']!;
+      });
     });
-  }
 
-  void generateNewQuestion() {
-    numberB = randomNumber.nextInt(9) + 1; // 1-9 arası (0 olmasın)
-    int result = randomNumber.nextInt(9) + 1;
-    numberA = numberB * result; // tam bölünebilir olsun
+    numberA = randomNumber.nextInt(99) + 1;
+    numberB = randomNumber.nextInt(99) + 1;
   }
 
   void buttonTapped(String button) {
@@ -73,9 +62,9 @@ class _HomePageDivisionState extends State<HomePageDiv> {
   }
 
   void checkResult() {
-    if (numberA ~/ numberB == int.tryParse(userAnswer)) {
+    if (numberA + numberB == int.tryParse(userAnswer)) {
       correctCount++;
-      _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+      _preferencesService.saveScore(correctCount, wrongCount);
       showDialog(
         context: context,
         builder: (context) {
@@ -88,7 +77,7 @@ class _HomePageDivisionState extends State<HomePageDiv> {
       );
     } else {
       wrongCount++;
-      _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+      _preferencesService.saveScore(correctCount, wrongCount);
       showDialog(
         context: context,
         builder: (context) {
@@ -106,7 +95,8 @@ class _HomePageDivisionState extends State<HomePageDiv> {
     Navigator.of(context).pop();
     setState(() {
       userAnswer = '';
-      generateNewQuestion();
+      numberA = randomNumber.nextInt(99) + 1;
+      numberB = randomNumber.nextInt(99) + 1;
     });
   }
 
@@ -122,18 +112,18 @@ class _HomePageDivisionState extends State<HomePageDiv> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doğru: $correctCount | Yanlış: $wrongCount"),
-        backgroundColor: const Color(0xFFBBDEFB),
+        backgroundColor: const Color(0xFFBBDEFB), // pastel buz mavisi
         foregroundColor: Colors.black87,
       ),
       drawer: const CustomDrawer(),
-      backgroundColor: const Color(0xFFFFF3E0),
+      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
       body: Column(
         children: [
           Container(
             height: 200,
             width: double.infinity,
             decoration: const BoxDecoration(
-              color: Color(0xFFC8E6C9),
+              color: Color(0xFFC8E6C9), // pastel nane yeşili
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -141,11 +131,11 @@ class _HomePageDivisionState extends State<HomePageDiv> {
             ),
             alignment: Alignment.center,
             child: Text(
-              '$numberA ÷ $numberB = $userAnswer',
+              '$numberA + $numberB = $userAnswer',
               style: const TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF2E7D32),
+                color: Color(0xFF2E7D32), // koyu yeşil yazı
               ),
             ),
           ),
@@ -162,7 +152,7 @@ class _HomePageDivisionState extends State<HomePageDiv> {
                   return MyButton(
                     child: numberPad[index],
                     onTap: () => buttonTapped(numberPad[index]),
-                    backgroundColor: const Color(0xFFFFECB3),
+                    backgroundColor: const Color(0xFFFFECB3), // pastel vanilya sarı
                     textColor: Colors.black87,
                   );
                 },
