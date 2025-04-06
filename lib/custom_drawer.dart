@@ -69,7 +69,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           _buildListTile(
             icon: Icons.add,
             label: 'Toplama Oyunu',
-            route: '/home',
+            route: '/addition',
           ),
           _buildListTile(
             icon: Icons.remove,

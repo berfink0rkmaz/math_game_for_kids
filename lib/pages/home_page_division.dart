@@ -5,14 +5,14 @@ import 'package:math_game_for_kids/util/result_message.dart';
 import '../custom_drawer.dart';
 import '../preferences_service.dart';
 
-class HomePageDiv extends StatefulWidget {
-  const HomePageDiv({super.key});
+class HomePageDivision extends StatefulWidget {
+  const HomePageDivision({super.key});
 
   @override
-  State<HomePageDiv> createState() => _HomePageDivisionState();
+  State<HomePageDivision> createState() => _HomePageDivisionState();
 }
 
-class _HomePageDivisionState extends State<HomePageDiv> {
+class _HomePageDivisionState extends State<HomePageDivision> {
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',

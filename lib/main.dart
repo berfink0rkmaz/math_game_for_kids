@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/pages/home_page.dart';
+import 'package:math_game_for_kids/pages/home_page_addition.dart';
 import 'package:math_game_for_kids/pages/home_page_division.dart';
 import 'package:math_game_for_kids/pages/home_page_substraction.dart';
 import 'package:math_game_for_kids/pages/login_page.dart';
@@ -23,8 +24,10 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
         '/multiplication': (context) => const HomePageMultiplication(),
-        '/subtraction': (context) => const HomePageSubtraction(),
+        '/subtraction': (context) => const HomePageSubstraction(),
         '/division': (context) => const HomePageDivision(),
+        '/addition': (context) => const HomePageAddition(),
+
       },
     );
   }
