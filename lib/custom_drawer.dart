@@ -55,18 +55,30 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
           ),
           ListTile(
-            title: const Text('Toplama Oyunu',),
+            title: const Text('Toplama Oyunu'),
             onTap: () {
-              Navigator.pop(context); // drawer'ı kapat
-              // bulunduğumuz sayfa zaten burası
+              Navigator.pushReplacementNamed(context, '/home');
+            },
+          ),
+          ListTile(
+            title: const Text('Çıkarma Oyunu'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/subtraction');
             },
           ),
           ListTile(
             title: const Text('Çarpma Oyunu'),
             onTap: () {
-              Navigator.pushNamed(context, '/multiplication');
+              Navigator.pushReplacementNamed(context, '/multiplication');
             },
           ),
+          ListTile(
+            title: const Text('Bölme Oyunu'),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, '/division');
+            },
+          ),
+          const Divider(),
           ListTile(
             title: const Text('Çıkış'),
             onTap: () {
