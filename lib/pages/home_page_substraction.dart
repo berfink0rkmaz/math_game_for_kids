@@ -2,18 +2,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
-import '../preferences_service.dart';
 import '../const.dart';
 import '../custom_drawer.dart';
+import '../preferences_service.dart';
 
-class HomePageMul extends StatefulWidget {
-  const HomePageMul({super.key});
+class HomePageSubtraction extends StatefulWidget {
+  const HomePageSubtraction({super.key});
 
   @override
-  State<HomePageMul> createState() => _HomePageState();
+  State<HomePageSubtraction> createState() => _HomePageSubtractionState();
 }
 
-class _HomePageState extends State<HomePageMul> {
+class _HomePageSubtractionState extends State<HomePageSubtraction> {
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePageMul> {
   int wrongCount = 0;
 
   final PreferencesService _preferencesService = PreferencesService();
+
   var randomNumber = Random();
 
   @override
@@ -40,9 +41,12 @@ class _HomePageState extends State<HomePageMul> {
         wrongCount = scores['wrong']!;
       });
     });
+    generateNewQuestion();
+  }
 
+  void generateNewQuestion() {
     numberA = randomNumber.nextInt(99) + 1;
-    numberB = randomNumber.nextInt(99) + 1;
+    numberB = randomNumber.nextInt(numberA) + 1; // negatif sonuç olmasın
   }
 
   void buttonTapped(String button) {
@@ -62,7 +66,7 @@ class _HomePageState extends State<HomePageMul> {
   }
 
   void checkResult() {
-    if (numberA * numberB == int.parse(userAnswer)) {
+    if (numberA - numberB == int.tryParse(userAnswer)) {
       correctCount++;
       _preferencesService.saveScore(correctCount, wrongCount);
       showDialog(
@@ -95,8 +99,7 @@ class _HomePageState extends State<HomePageMul> {
     Navigator.of(context).pop();
     setState(() {
       userAnswer = '';
-      numberA = randomNumber.nextInt(99) + 1;
-      numberB = randomNumber.nextInt(99) + 1;
+      generateNewQuestion();
     });
   }
 
@@ -112,7 +115,7 @@ class _HomePageState extends State<HomePageMul> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Doğru: $correctCount | Yanlış: $wrongCount"),
-        backgroundColor: const Color(0xFFBBDEFB), // pastel buz mavisi
+        backgroundColor: Color(0xFFBBDEFB),
         foregroundColor: Colors.black87,
       ),
       drawer: const CustomDrawer(),
@@ -130,12 +133,15 @@ class _HomePageState extends State<HomePageMul> {
               ),
             ),
             alignment: Alignment.center,
-            child: Text(
-              '$numberA * $numberB = $userAnswer',
-              style: const TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2E7D32), // koyu yeşil yazı
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                '$numberA − $numberB = $userAnswer',
+                style: const TextStyle(
+                  fontSize: 36,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2E7D32), // koyu yeşil
+                ),
               ),
             ),
           ),
