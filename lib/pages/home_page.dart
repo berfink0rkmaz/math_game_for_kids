@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
-import 'const.dart';
-import 'custom_drawer.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
+import '../const.dart';
+import '../custom_drawer.dart';
+import '../preferences_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,16 +20,27 @@ class _HomePageState extends State<HomePage> {
     '7', '8', '9', '=',
     ' ','0',' ',
   ];
+  final PreferencesService _preferencesService = PreferencesService();
 
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
+
+  int correctCount = 0;
+  int wrongCount = 0;
 
   var randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
+    _preferencesService.loadScore().then((scores) {
+      setState(() {
+        correctCount = scores['correct']!;
+        wrongCount = scores['wrong']!;
+      });
+    });
+
     numberA = randomNumber.nextInt(99) + 1;
     numberB = randomNumber.nextInt(99) + 1;
   }
@@ -50,8 +62,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void checkResult() {
-    if (numberA + numberB == int.parse(userAnswer)) {
-      showDialog(
+    if (numberA + numberB == int.tryParse(userAnswer)) {
+      setState(() {
+        correctCount++;
+      });
+     _preferencesService.saveScore(correctCount, wrongCount);      showDialog(
         context: context,
         builder: (context) {
           return ResultMessage(
@@ -62,7 +77,10 @@ class _HomePageState extends State<HomePage> {
         },
       );
     } else {
-      showDialog(
+      setState(() {
+        wrongCount++;
+      });
+      _preferencesService.saveScore(correctCount, wrongCount);      showDialog(
         context: context,
         builder: (context) {
           return ResultMessage(
@@ -100,7 +118,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Toplama Oyunu"),
+        title: Text("Correct: $correctCount | Wrong: $wrongCount"),
         backgroundColor: Colors.green,
       ),
       drawer: const CustomDrawer(),

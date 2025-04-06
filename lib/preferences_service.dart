@@ -1,6 +1,21 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesService {
+
+  Future<Map<String, int>> loadScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      'correct': prefs.getInt('correctCount') ?? 0,
+      'wrong': prefs.getInt('wrongCount') ?? 0,
+    };
+  }
+
+  Future<void> saveScore(int correct, int wrong) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('correctCount', correct);
+    await prefs.setInt('wrongCount', wrong);
+  }
+
   // Kullanıcı adı ve şifreyi kaydetme
   Future<void> saveCredentials(String username, String password) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

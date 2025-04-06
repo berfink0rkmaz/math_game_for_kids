@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/pages/home_page.dart';
 import 'package:math_game_for_kids/pages/login_page.dart';
 
+import 'pages/home_page_multipication.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
+        '/multiplication': (context) => const HomePageMul(),
       },
     );
   }
