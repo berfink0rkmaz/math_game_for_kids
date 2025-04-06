@@ -18,9 +18,8 @@ class _HomePageState extends State<HomePage> {
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
     '7', '8', '9', '=',
-    ' ','0',' ',
+    ' ', '0', ' ',
   ];
-  final PreferencesService _preferencesService = PreferencesService();
 
   int numberA = 1;
   int numberB = 1;
@@ -29,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   int correctCount = 0;
   int wrongCount = 0;
 
+  final PreferencesService _preferencesService = PreferencesService();
   var randomNumber = Random();
 
   @override
@@ -63,99 +63,88 @@ class _HomePageState extends State<HomePage> {
 
   void checkResult() {
     if (numberA + numberB == int.tryParse(userAnswer)) {
-      setState(() {
-        correctCount++;
-      });
-     _preferencesService.saveScore(correctCount, wrongCount);      showDialog(
+      correctCount++;
+      _preferencesService.saveScore(correctCount, wrongCount);
+      showDialog(
         context: context,
         builder: (context) {
           return ResultMessage(
-            message: 'Correct!',
+            message: 'Tebrikler!',
             onTap: goToNextQuestion,
-            icon: Icons.arrow_forward,
+            icon: Icons.check_circle_outline,
           );
         },
       );
     } else {
-      setState(() {
-        wrongCount++;
-      });
-      _preferencesService.saveScore(correctCount, wrongCount);      showDialog(
+      wrongCount++;
+      _preferencesService.saveScore(correctCount, wrongCount);
+      showDialog(
         context: context,
         builder: (context) {
           return ResultMessage(
-            message: 'Sorry try again!',
+            message: 'Tekrar Dene!',
             onTap: goToBackQuestion,
-            icon: Icons.rotate_left,
+            icon: Icons.refresh,
           );
         },
       );
     }
   }
 
-
   void goToNextQuestion() {
     Navigator.of(context).pop();
-
     setState(() {
       userAnswer = '';
-
       numberA = randomNumber.nextInt(99) + 1;
       numberB = randomNumber.nextInt(99) + 1;
     });
   }
 
-  void goToBackQuestion(){
+  void goToBackQuestion() {
     Navigator.of(context).pop();
-
     setState(() {
       userAnswer = '';
     });
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Correct: $correctCount | Wrong: $wrongCount"),
-        backgroundColor: Colors.green,
+        title: Text("Doğru: $correctCount | Yanlış: $wrongCount"),
+        backgroundColor: const Color(0xFFBBDEFB), // pastel buz mavisi
+        foregroundColor: Colors.black87,
       ),
       drawer: const CustomDrawer(),
-      backgroundColor: Colors.green.shade300,
+      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
       body: Column(
         children: [
           Container(
-            height: 140,
-            color: Colors.green,
-          ),
-          Expanded(
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('$numberA + $numberB = ', style: WhiteTextStyle),
-                  Container(
-                    height: 50,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      color: Colors.lightGreen[400],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                      child: Text(userAnswer, style: WhiteTextStyle),
-                    ),
-                  ),
-                ],
+            height: 200,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Color(0xFFC8E6C9), // pastel nane yeşili
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '$numberA + $numberB = $userAnswer',
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2E7D32), // koyu yeşil yazı
               ),
             ),
           ),
+          const SizedBox(height: 16),
           Expanded(
             flex: 2,
             child: Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding: const EdgeInsets.all(12.0),
               child: GridView.builder(
-                shrinkWrap: true,
                 itemCount: numberPad.length,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
@@ -163,6 +152,8 @@ class _HomePageState extends State<HomePage> {
                   return MyButton(
                     child: numberPad[index],
                     onTap: () => buttonTapped(numberPad[index]),
+                    backgroundColor: const Color(0xFFFFECB3), // pastel vanilya sarı
+                    textColor: Colors.black87,
                   );
                 },
               ),

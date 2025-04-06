@@ -4,23 +4,30 @@ import '../const.dart';
 class MyButton extends StatelessWidget {
   final String child;
   final VoidCallback onTap;
-  var buttunColor = Colors.lightGreen[400];
+  final Color backgroundColor;
+  final Color textColor;
 
-  MyButton({
+  const MyButton({
     super.key,
     required this.child,
-    required this.onTap});
+    required this.onTap,
+    this.backgroundColor = const Color(0xFFB2DFDB), // varsayılan pastel mint
+    this.textColor = Colors.white, // varsayılan beyaz
+  });
 
   @override
   Widget build(BuildContext context) {
-    if(child == 'C'){
-      buttunColor = Colors.green;
-    }else if(child == 'Del'){
-      buttunColor = Colors.red;
-    }else if(child == '='){
-      buttunColor = Colors.deepPurple;
-    }else if(child == ' '){
-      buttunColor = Colors.transparent;
+    Color resolvedColor = backgroundColor;
+
+    // Özel buton renkleri (isteğe göre koruyabiliriz)
+    if (child == 'C') {
+      resolvedColor = Colors.green;
+    } else if (child == 'Del') {
+      resolvedColor = Colors.red;
+    } else if (child == '=') {
+      resolvedColor = Colors.deepPurple;
+    } else if (child == ' ') {
+      resolvedColor = Colors.transparent;
     }
 
     return Padding(
@@ -29,16 +36,19 @@ class MyButton extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            color: buttunColor,
+            color: resolvedColor,
             borderRadius: BorderRadius.circular(4),
           ),
           child: Center(
             child: Text(
               child,
-              style: WhiteTextStyle,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
             ),
           ),
-
         ),
       ),
     );
