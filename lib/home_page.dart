@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
               child: GridView.builder(
                 shrinkWrap: true,
                 itemCount: numberPad.length,
-                //physics: const NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                 itemBuilder: (context, index) {
                   return MyButton(
