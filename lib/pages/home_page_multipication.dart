@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
-import 'const.dart';
+import '../const.dart';
 
 class HomePageMul  extends StatefulWidget {
   const HomePageMul ({super.key});

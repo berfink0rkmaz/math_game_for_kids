@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
-import 'const.dart';
-import 'custom_drawer.dart';
+
+import '../const.dart';
+import '../custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

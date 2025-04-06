@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart';
-import 'home_page.dart';
-import 'home_page_multipication.dart';
+import 'package:math_game_for_kids/pages/home_page.dart';
+import 'package:math_game_for_kids/pages/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Math Game for Kids',
-      theme: ThemeData(primarySwatch: Colors.green),
+      title: 'Math Game',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+      ),
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginPage(),
         '/home': (context) => const HomePage(),
-        '/multiplication': (context) => const HomePageMul(),
       },
     );
   }
