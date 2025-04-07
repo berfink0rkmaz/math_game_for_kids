@@ -11,26 +11,33 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
+  // Rastgele alınacak logo URL'si
   String? logoUrl;
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    fetchLogo();
+    fetchLogo(); // Drawer açıldığında logo yükle
   }
 
+  // İnternetten rastgele logo çek
   Future<void> fetchLogo() async {
     setState(() => isLoading = true);
+
     try {
-      int randomId = Random().nextInt(1000) + 1;
-      final uri = Uri.parse('https://picsum.photos/id/$randomId/info');
+      final uri = Uri.parse('https://67f44b66cbef97f40d2decaa.mockapi.io/logos');
       final response = await http.get(uri);
+
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        setState(() {
-          logoUrl = data['download_url'];
-        });
+        final List<dynamic> data = jsonDecode(response.body);
+
+        if (data.isNotEmpty) {
+          int randomIndex = Random().nextInt(data.length); // 0 - veri uzunluğu arasında
+          setState(() {
+            logoUrl = data[randomIndex]['logolink'];
+          });
+        }
       }
     } catch (e) {
       logoUrl = null;
@@ -42,13 +49,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali arka plan
+      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
+
       child: Column(
         children: [
+          // Logo bölümü
           DrawerHeader(
-            decoration: const BoxDecoration(
-              color: Color(0xFFBBDEFB), // pastel buz mavisi
-            ),
+            decoration: const BoxDecoration(color: Color(0xFFBBDEFB)),
             child: Center(
               child: isLoading
                   ? const CircularProgressIndicator(color: Colors.white)
@@ -65,6 +72,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 ),
               ),
             ),
+          ),
+
+          // Menü seçenekleri
+          _buildListTile(
+            icon: Icons.home,
+            label: 'Ana Sayfa',
+            route: '/home',
+            isHome: true, // özel yönlendirme için
           ),
           _buildListTile(
             icon: Icons.add,
@@ -86,7 +101,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
             label: 'Bölme Oyunu',
             route: '/division',
           ),
+
           const Divider(),
+
           _buildListTile(
             icon: Icons.exit_to_app,
             label: 'Çıkış',
@@ -97,12 +114,28 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
-  Widget _buildListTile({required IconData icon, required String label, required String route}) {
+  // Drawer için her bir buton
+  Widget _buildListTile({
+    required IconData icon,
+    required String label,
+    required String route,
+    bool isHome = false,
+  }) {
     return ListTile(
       leading: Icon(icon, color: Colors.black87),
       title: Text(label, style: const TextStyle(color: Colors.black87)),
       onTap: () {
-        Navigator.pushReplacementNamed(context, route);
+        Navigator.pop(context); // Drawer'ı kapat
+        if (isHome) {
+          // Ana sayfa: önceki sayfaları temizle
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/home',
+                (Route<dynamic> route) => false,
+          );
+        } else {
+          // Diğer sayfalar
+          Navigator.pushReplacementNamed(context, route);
+        }
       },
     );
   }

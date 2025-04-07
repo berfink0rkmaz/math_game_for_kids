@@ -13,6 +13,7 @@ class HomePageSubstraction extends StatefulWidget {
 }
 
 class _HomePageSubstractionState extends State<HomePageSubstraction> {
+  // Tuş takımı: rakamlar + C, Del, =
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
@@ -20,23 +21,30 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
     ' ', '0', ' ',
   ];
 
+  // Sorunun sayıları ve kullanıcı cevabı
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
+
+  // Skor sayacı
   int correctCount = 0;
   int wrongCount = 0;
 
+  // Kullanıcı bilgisi
   late String currentUser;
+
+  // Yardımcı servisler
   final PreferencesService _preferencesService = PreferencesService();
   final Random randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
-    loadUserAndScores();
-    generateNewQuestion();
+    loadUserAndScores();   // kullanıcı adı ve skorlarını getir
+    generateNewQuestion(); // ilk soruyu oluştur
   }
 
+  // Kullanıcı adına göre doğru/yanlış skorlarını getir
   void loadUserAndScores() async {
     final credentials = await _preferencesService.loadCredentials();
     final username = credentials['username'] ?? 'default';
@@ -50,31 +58,35 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
     });
   }
 
+  // Yeni çıkarma sorusu üret (negatif olmaması için B < A)
   void generateNewQuestion() {
     numberA = randomNumber.nextInt(99) + 1;
-    numberB = randomNumber.nextInt(numberA) + 1; // negatif olmasın
+    numberB = randomNumber.nextInt(numberA) + 1;
   }
 
+  // Tuşa basıldığında yapılacak işlemler
   void buttonTapped(String button) {
     setState(() {
       if (button == '=') {
-        checkResult();
+        checkResult(); // kontrol et
       } else if (button == 'C') {
-        userAnswer = '';
+        userAnswer = ''; // sıfırla
       } else if (button == 'Del') {
         if (userAnswer.isNotEmpty) {
-          userAnswer = userAnswer.substring(0, userAnswer.length - 1);
+          userAnswer = userAnswer.substring(0, userAnswer.length - 1); // son karakteri sil
         }
       } else if (userAnswer.length <= 3) {
-        userAnswer += button;
+        userAnswer += button; // cevaba sayı ekle
       }
     });
   }
 
+  // Cevabı kontrol et ve sonucu göster
   void checkResult() {
     if (numberA - numberB == int.tryParse(userAnswer)) {
       correctCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -88,6 +100,7 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
     } else {
       wrongCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -101,6 +114,7 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
     }
   }
 
+  // Yeni bir soru oluştur
   void goToNextQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -109,6 +123,7 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
     });
   }
 
+  // Kullanıcı tekrar deneyecekse
   void goToBackQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -128,6 +143,7 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
       backgroundColor: const Color(0xFFFFF3E0),
       body: Column(
         children: [
+          // Soru kutusu
           Container(
             height: 200,
             width: double.infinity,
@@ -149,6 +165,8 @@ class _HomePageSubstractionState extends State<HomePageSubstraction> {
             ),
           ),
           const SizedBox(height: 16),
+
+          // Numberpad
           Expanded(
             flex: 2,
             child: Padding(

@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
-import '../const.dart';
 import '../custom_drawer.dart';
 import '../preferences_service.dart';
 
@@ -14,6 +13,7 @@ class HomePageMultiplication extends StatefulWidget {
 }
 
 class _HomePageMultiplicationState extends State<HomePageMultiplication> {
+  // Sayı tuşları ve özel butonlar
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
@@ -21,23 +21,30 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
     ' ', '0', ' ',
   ];
 
+  // Sorudaki sayılar ve kullanıcı cevabı
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
+
+  // Skorlar
   int correctCount = 0;
   int wrongCount = 0;
 
+  // Kullanıcı adı
   late String currentUser;
+
+  // Yardımcı sınıflar
   final PreferencesService _preferencesService = PreferencesService();
   final Random randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
-    loadUserAndScores();
-    generateNewQuestion();
+    loadUserAndScores();     // kullanıcı ve skor bilgilerini getir
+    generateNewQuestion();   // ilk soruyu oluştur
   }
 
+  // Kullanıcı bilgilerini ve skorları yükle
   void loadUserAndScores() async {
     final credentials = await _preferencesService.loadCredentials();
     final username = credentials['username'] ?? 'default';
@@ -51,31 +58,35 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
     });
   }
 
+  // Yeni çarpma sorusu oluştur
   void generateNewQuestion() {
     numberA = randomNumber.nextInt(9) + 1;
     numberB = randomNumber.nextInt(9) + 1;
   }
 
+  // Tuşlara tıklanınca yapılacak işlemler
   void buttonTapped(String button) {
     setState(() {
       if (button == '=') {
-        checkResult();
+        checkResult(); // sonucu kontrol et
       } else if (button == 'C') {
-        userAnswer = '';
+        userAnswer = ''; // tüm cevabı temizle
       } else if (button == 'Del') {
         if (userAnswer.isNotEmpty) {
-          userAnswer = userAnswer.substring(0, userAnswer.length - 1);
+          userAnswer = userAnswer.substring(0, userAnswer.length - 1); // son karakteri sil
         }
       } else if (userAnswer.length <= 3) {
-        userAnswer += button;
+        userAnswer += button; // sayı ekle
       }
     });
   }
 
+  // Kullanıcının cevabını kontrol et
   void checkResult() {
     if (numberA * numberB == int.tryParse(userAnswer)) {
       correctCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -89,6 +100,7 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
     } else {
       wrongCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -102,6 +114,7 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
     }
   }
 
+  // Yeni soruya geç
   void goToNextQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -110,6 +123,7 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
     });
   }
 
+  // Aynı soruyu tekrar göster
   void goToBackQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -129,6 +143,7 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
       backgroundColor: const Color(0xFFFFF3E0),
       body: Column(
         children: [
+          // Soru kutusu
           Container(
             height: 200,
             width: double.infinity,
@@ -150,6 +165,8 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
             ),
           ),
           const SizedBox(height: 16),
+
+          // Numberpaad
           Expanded(
             flex: 2,
             child: Padding(

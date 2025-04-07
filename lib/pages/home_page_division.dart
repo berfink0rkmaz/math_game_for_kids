@@ -13,6 +13,7 @@ class HomePageDivision extends StatefulWidget {
 }
 
 class _HomePageDivisionState extends State<HomePageDivision> {
+  // Ekranda gösterilecek sayı butonları
   List<String> numberPad = [
     '1', '2', '3', 'C',
     '4', '5', '6', 'Del',
@@ -20,23 +21,30 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     ' ', '0', ' ',
   ];
 
+  // İşlem için kullanılacak sayılar ve kullanıcı cevabı
   int numberA = 1;
   int numberB = 1;
   String userAnswer = '';
+
+  // Doğru/yanlış sayaçları
   int correctCount = 0;
   int wrongCount = 0;
 
+  // Giriş yapan kullanıcı
   late String currentUser;
+
+  // Yardımcı sınıflar
   final PreferencesService _preferencesService = PreferencesService();
   final Random randomNumber = Random();
 
   @override
   void initState() {
     super.initState();
-    loadUserAndScores();
-    generateNewQuestion();
+    loadUserAndScores(); // kullanıcı adı ve skorları yükle
+    generateNewQuestion(); // ilk soru oluştur
   }
 
+  // Kullanıcıya özel skorları shared preferences'tan yükle
   void loadUserAndScores() async {
     final credentials = await _preferencesService.loadCredentials();
     final username = credentials['username'] ?? 'default';
@@ -50,32 +58,36 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     });
   }
 
+  // Tam bölünebilen yeni bir bölme sorusu oluştur
   void generateNewQuestion() {
-    numberB = randomNumber.nextInt(9) + 1; // 1-9 arası (0 olmasın)
-    int result = randomNumber.nextInt(9) + 1;
-    numberA = numberB * result; // tam bölünebilir olsun
+    numberB = randomNumber.nextInt(9) + 1; // bölen (0 olmasın)
+    int result = randomNumber.nextInt(9) + 1; // sonuç
+    numberA = numberB * result; // bölünen = bölen × sonuç
   }
 
+  // Kullanıcının butonlara tıklamasını işler
   void buttonTapped(String button) {
     setState(() {
       if (button == '=') {
-        checkResult();
+        checkResult(); // sonucu kontrol et
       } else if (button == 'C') {
-        userAnswer = '';
+        userAnswer = ''; // tüm cevabı temizle
       } else if (button == 'Del') {
         if (userAnswer.isNotEmpty) {
-          userAnswer = userAnswer.substring(0, userAnswer.length - 1);
+          userAnswer = userAnswer.substring(0, userAnswer.length - 1); // son karakteri sil
         }
       } else if (userAnswer.length <= 3) {
-        userAnswer += button;
+        userAnswer += button; // sayı ekle
       }
     });
   }
 
+  // Cevabı kontrol et ve sonucu göster
   void checkResult() {
     if (numberA ~/ numberB == int.tryParse(userAnswer)) {
       correctCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -89,6 +101,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     } else {
       wrongCount++;
       _preferencesService.saveScoreForUser(currentUser, correctCount, wrongCount);
+
       showDialog(
         context: context,
         builder: (context) {
@@ -102,6 +115,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     }
   }
 
+  // Yeni soruya geç
   void goToNextQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -110,6 +124,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
     });
   }
 
+  // Aynı soruyu tekrar göster
   void goToBackQuestion() {
     Navigator.of(context).pop();
     setState(() {
@@ -129,6 +144,7 @@ class _HomePageDivisionState extends State<HomePageDivision> {
       backgroundColor: const Color(0xFFFFF3E0),
       body: Column(
         children: [
+          // Soru kutusu
           Container(
             height: 200,
             width: double.infinity,
@@ -150,6 +166,8 @@ class _HomePageDivisionState extends State<HomePageDivision> {
             ),
           ),
           const SizedBox(height: 16),
+
+          // Numberpad
           Expanded(
             flex: 2,
             child: Padding(

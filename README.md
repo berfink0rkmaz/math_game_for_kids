@@ -1,16 +1,94 @@
-# math_game_for_kids
 
-A new Flutter project.
+# Math Game for Kids - Flutter Uygulaması
 
-## Getting Started
+Bu Flutter projesi, çocuklara matematiği sevdirmek ve dört işlem becerilerini oyun yoluyla geliştirmek amacıyla tasarlanmıştır. Kullanıcılar toplama, çıkarma, çarpma ve bölme oyunlarıyla kendilerini geliştirirken, skorlarını takip edebilirler. Uygulama, sade ve soft pastel renklerle çocuklara uygun şekilde dizayn edilmiştir.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 📁 Proje Yapısı
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```
+lib/ 
+├── main.dart
+├── pages/
+│   ├── login_page.dart
+│   ├── home_page.dart
+│   ├── home_page_addition.dart
+│   ├── home_page_substraction.dart
+│   ├── home_page_multipication.dart
+│   ├── home_page_division.dart
+├── util/
+│   ├── my_button.dart
+│   ├── result_message.dart
+├── preferences_service.dart
+├── custom_drawer.dart
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🔄 Proje Sayfaları ve Görevleri
+
+- **login_page.dart**: Kullanıcı adı ve şifreyle giriş yapılmasını ve yeni hesap oluşturulmasını sağlar.
+- **home_page.dart**: Oyun seçim menüsünü barındırır. Kullanıcı buradan işlem türünü seçerek oyuna geçer.
+- **home_page_addition.dart**: Toplama oyununun oynandığı sayfa.
+- **home_page_substraction.dart**: Çıkarma oyununun oynandığı sayfa.
+- **home_page_multipication.dart**: Çarpma oyununun oynandığı sayfa.
+- **home_page_division.dart**: Bölme oyununun oynandığı sayfa.
+- **custom_drawer.dart**: Sayfalar arası geçişi sağlayan menü.
+- **my_button.dart**: Sayı tuşlarını içeren özel buton widget'ı.
+- **result_message.dart**: Sonuç mesajlarını gösteren özel popup.
+- **preferences_service.dart**: Kullanıcı verilerini kaydetme ve yükleme işlemlerini yönetir.
+
+---
+
+## 🎨 Drawer Menüdeki Logo ve API Bilgisi
+
+Drawer menüsünde rastgele bir logo görseli görüntülenir. Bu logolar, [https://picsum.photos/](https://picsum.photos/) API'si kullanılarak dinamik olarak yüklenmektedir.
+
+API adresi örneği:
+```
+https://picsum.photos/id/{randomId}/info
+```
+Bu sayede her uygulama açılışında farklı bir logo görüntülenir.
+
+---
+
+## 🔐 Login Bilgileri Nasıl Saklanıyor?
+
+Kullanıcı adı, şifre ve skor verileri `shared_preferences` paketi ile **cihazda lokal olarak** saklanır.
+Ayrıca her kullanıcıya özel skor takibi yapılması için veriler anahtar-değer çiftleri şeklinde kaydedilir.
+
+Kullanılan paket:
+```yaml
+shared_preferences: ^2.2.2
+```
+
+---
+
+## 💼 Grup Üye Katkıları
+
+| Grup Üyesi        | Katkılar                                                                 |
+|---------------------|---------------------------------------------------------------------------|
+| **Berfin Korkmaz**  | Projenin tüm sayfalarını geliştiren, UI tasarımını yapan, skor sistemi ve login mantığını kuran kişi |
+
+> Tüm proje bireysel olarak Berfin tarafından geliştirilmiştir. Tasarım, geliştirme, hata ayıklama ve test süreçlerinin tamamı kendisi tarafından yürütülmüştür.
+
+---
+
+## 🌟 Öne Çıkan Özellikler
+
+- ✨ **Kullanıcıya özel skor kaydı** (her kullanıcının doğru/yanlış verileri ayrı tutulur)
+- 💪 Çocuk dostu **soft pastel tema** ve sade arayüz
+- ⇄ Drawer menü ile kolay sayfa geçişi
+- 🌐 Logo için dış kaynaklı dinamik API kullanımı
+- 🛠️ Shared Preferences ile login ve skor verisi saklama
+
+---
+
+## 🧠 Yaratıcı ve Özgün Yaklaşım
+
+- Uygulama sıradan bir matematik oyunundan ziyade, **kullanıcıya özel veri saklayan** ve **her işleme özgü tasarımlar sunan** bir yapıya sahiptir.
+- Renklerin soft ve dikkat dağıtmayan şekilde kullanılması çocuk psikolojisi gözetilerek planlanmıştır.
+- Rastgele logo özelliği ile her açılışta farklı bir görsel sunularak ilgi çekicilik artırılmıştır.
+
+---
