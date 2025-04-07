@@ -1,7 +1,10 @@
 
 # Math Game for Kids - Flutter Uygulaması
 
-Bu Flutter projesi, çocuklara matematiği sevdirmek ve dört işlem becerilerini oyun yoluyla geliştirmek amacıyla tasarlanmıştır. Kullanıcılar toplama, çıkarma, çarpma ve bölme oyunlarıyla kendilerini geliştirirken, skorlarını takip edebilirler. Uygulama, sade ve soft pastel renklerle çocuklara uygun şekilde dizayn edilmiştir.
+Bu Flutter projesi, çocuklara matematiği sevdirmek ve dört işlem becerilerini oyun yoluyla geliştirmek 
+amacıyla tasarlanmıştır. Kullanıcılar toplama, çıkarma, çarpma ve bölme oyunlarıyla kendilerini 
+geliştirirken, skorlarını takip edebilirler. Uygulama, sade ve soft pastel renklerle çocuklara 
+uygun şekilde dizayn edilmiştir.
 
 ---
 
@@ -20,6 +23,7 @@ lib/
 ├── util/
 │   ├── my_button.dart
 │   ├── result_message.dart
+|   ├── const.dart
 ├── preferences_service.dart
 ├── custom_drawer.dart
 ```
@@ -43,11 +47,12 @@ lib/
 
 ## 🎨 Drawer Menüdeki Logo ve API Bilgisi
 
-Drawer menüsünde rastgele bir logo görseli görüntülenir. Bu logolar, [https://picsum.photos/](https://picsum.photos/) API'si kullanılarak dinamik olarak yüklenmektedir.
+Drawer menüsünde uygulamamız içi tasarladığımız 3 logoyu rastgele seçilerekrek görüntülenir. Bu logolar,
+'https://67f44b66cbef97f40d2decaa.mockapi.io/logos' API'si kullanılarak dinamik olarak yüklenmektedir.
 
 API adresi örneği:
 ```
-https://picsum.photos/id/{randomId}/info
+'https://67f44b66cbef97f40d2decaa.mockapi.io/logos'
 ```
 Bu sayede her uygulama açılışında farklı bir logo görüntülenir.
 
@@ -56,7 +61,8 @@ Bu sayede her uygulama açılışında farklı bir logo görüntülenir.
 ## 🔐 Login Bilgileri Nasıl Saklanıyor?
 
 Kullanıcı adı, şifre ve skor verileri `shared_preferences` paketi ile **cihazda lokal olarak** saklanır.
-Ayrıca her kullanıcıya özel skor takibi yapılması için veriler anahtar-değer çiftleri şeklinde kaydedilir.
+Ayrıca her kullanıcıya özel skor takibi yapılması için veriler anahtar-değer çiftleri şeklinde 
+kaydedilir.
 
 Kullanılan paket:
 ```yaml
@@ -67,11 +73,12 @@ shared_preferences: ^2.2.2
 
 ## 💼 Grup Üye Katkıları
 
-| Grup Üyesi        | Katkılar                                                                 |
-|---------------------|---------------------------------------------------------------------------|
-| **Berfin Korkmaz**  | Projenin tüm sayfalarını geliştiren, UI tasarımını yapan, skor sistemi ve login mantığını kuran kişi |
-
-> Tüm proje bireysel olarak Berfin tarafından geliştirilmiştir. Tasarım, geliştirme, hata ayıklama ve test süreçlerinin tamamı kendisi tarafından yürütülmüştür.
+| Grup Üyesi        | Katkılar                                                                          |
+|      Erva Eski        | Projenin toplama,çıkarma,bölme,çarma sayfalarını ve home sayfasını yapan kişi |
+|Sümeyye Berfin Korkmaz | Projenin UI tasarımını,drawerını yapan, skor sistemi ve login mantığını kuran |
+                         |ve hata ayıklama, test süreçlerini yapan kişi                                 |
+> Tüm proje aslında birlikte geliştirilmiştir. Birçok yerde birbirimize yardım ettik ve fikir
+alışverişinde bulunduk.
 
 ---
 
@@ -87,7 +94,8 @@ shared_preferences: ^2.2.2
 
 ## 🧠 Yaratıcı ve Özgün Yaklaşım
 
-- Uygulama sıradan bir matematik oyunundan ziyade, **kullanıcıya özel veri saklayan** ve **her işleme özgü tasarımlar sunan** bir yapıya sahiptir.
+- Uygulama sıradan bir matematik oyunundan ziyade, **kullanıcıya özel veri saklayan** ve 
+**her işleme özgü tasarımlar sunan** bir yapıya sahiptir.
 - Renklerin soft ve dikkat dağıtmayan şekilde kullanılması çocuk psikolojisi gözetilerek planlanmıştır.
 - Rastgele logo özelliği ile her açılışta farklı bir görsel sunularak ilgi çekicilik artırılmıştır.
 

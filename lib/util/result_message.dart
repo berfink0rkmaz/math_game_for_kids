@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../const.dart';
+import 'const.dart';
 
 class ResultMessage extends StatelessWidget {
   // Gösterilecek mesaj, tıklanınca çalışacak fonksiyon ve ikon
