@@ -2,8 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:math_game_for_kids/util/my_button.dart';
 import 'package:math_game_for_kids/util/result_message.dart';
-import '../custom_drawer.dart';
 import '../preferences_service.dart';
+import '../util/base_page.dart'; // Ortak sayfa yapısı (AppBar + Drawer içerir)
 
 class HomePageMultiplication extends StatefulWidget {
   const HomePageMultiplication({super.key});
@@ -133,14 +133,9 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Doğru: $correctCount | Yanlış: $wrongCount"),
-        backgroundColor: const Color(0xFFBBDEFB),
-        foregroundColor: Colors.black87,
-      ),
-      drawer: const CustomDrawer(),
-      backgroundColor: const Color(0xFFFFF3E0),
+    // BasePage: AppBar ve Drawer ortak yapıda gelir, sadece içerik burada tanımlanır
+    return BasePage(
+      title: "Çarpma Oyunu - ✅$correctCount ❌$wrongCount",
       body: Column(
         children: [
           // Soru kutusu
@@ -166,7 +161,7 @@ class _HomePageMultiplicationState extends State<HomePageMultiplication> {
           ),
           const SizedBox(height: 16),
 
-          // Numberpaad
+          // Numberpad
           Expanded(
             flex: 2,
             child: Padding(
