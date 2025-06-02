@@ -79,6 +79,16 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF3E0),
       appBar: AppBar(
+        leading: _isCreatingAccount
+            ? IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            setState(() {
+              _isCreatingAccount = false;
+            });
+          },
+        )
+            : null,
         title: const Text("Hoş Geldin!"),
         centerTitle: true,
         backgroundColor: const Color(0xFFBBDEFB),
@@ -140,19 +150,20 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 24),
                 ],
 
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC8E6C9),
-                    foregroundColor: Colors.black87,
-                    minimumSize: const Size.fromHeight(50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                if (!_isCreatingAccount)
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFC8E6C9),
+                      foregroundColor: Colors.black87,
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
+                    onPressed: _validateLogin,
+                    child: const Text("Giriş Yap"),
                   ),
-                  onPressed: _validateLogin,
-                  child: const Text("Giriş Yap"),
-                ),
-                const SizedBox(height: 12),
+                if (!_isCreatingAccount) const SizedBox(height: 12),
 
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -174,8 +185,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller,
-      {bool obscure = false}) {
+  Widget _buildTextField(String label, TextEditingController controller, {bool obscure = false}) {
     return TextFormField(
       controller: controller,
       obscureText: obscure,
