@@ -31,6 +31,7 @@ Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle 
 
 📁 Proje Yapısı
 
+```plaintext
 lib/
 ├── main.dart
 ├── pages/
@@ -47,7 +48,7 @@ lib/
 │   └── const.dart
 ├── preferences_service.dart
 └── custom_drawer.dart
-
+```
 
 ⸻
 
