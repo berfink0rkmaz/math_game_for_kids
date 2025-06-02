@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../preferences_service.dart';
 import '../util/base_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,56 +13,55 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
 
-  late TextEditingController fullNameController;
-  late TextEditingController emailController;
-  late TextEditingController birthDateController;
-  late TextEditingController birthPlaceController;
-  late TextEditingController cityController;
-  late TextEditingController usernameController;
-  late TextEditingController passwordController;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _birthDateController = TextEditingController();
+  final TextEditingController _birthPlaceController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
 
+  String? _username;
   int correct = 0;
   int wrong = 0;
 
   @override
   void initState() {
     super.initState();
-    fullNameController = TextEditingController();
-    emailController = TextEditingController();
-    birthDateController = TextEditingController();
-    birthPlaceController = TextEditingController();
-    cityController = TextEditingController();
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
     _loadUserData();
   }
 
   Future<void> _loadUserData() async {
     final prefs = await SharedPreferences.getInstance();
+    _username = prefs.getString('currentUser');
 
-    setState(() {
-      fullNameController.text = prefs.getString('fullName') ?? '';
-      emailController.text = prefs.getString('email') ?? '';
-      birthDateController.text = prefs.getString('birthDate') ?? '';
-      birthPlaceController.text = prefs.getString('birthPlace') ?? '';
-      cityController.text = prefs.getString('city') ?? '';
-      usernameController.text = prefs.getString('username') ?? '';
-      passwordController.text = prefs.getString('password') ?? '';
-      correct = prefs.getInt('${usernameController.text}_correct') ?? 0;
-      wrong = prefs.getInt('${usernameController.text}_wrong') ?? 0;
-    });
+    if (_username != null) {
+      final userInfo = await PreferencesService().loadUserInfo(_username!);
+      final score = await PreferencesService().loadScoreForUser(_username!);
+
+      setState(() {
+        _nameController.text = userInfo['name'] ?? '';
+        _surnameController.text = userInfo['surname'] ?? '';
+        _emailController.text = userInfo['email'] ?? '';
+        _birthDateController.text = userInfo['birthDate'] ?? '';
+        _birthPlaceController.text = userInfo['birthPlace'] ?? '';
+        _cityController.text = userInfo['city'] ?? '';
+        correct = score['correct']!;
+        wrong = score['wrong']!;
+      });
+    }
   }
 
   Future<void> _saveUserData() async {
+    if (_username == null) return;
+
     final prefs = await SharedPreferences.getInstance();
 
-    await prefs.setString('fullName', fullNameController.text);
-    await prefs.setString('email', emailController.text);
-    await prefs.setString('birthDate', birthDateController.text);
-    await prefs.setString('birthPlace', birthPlaceController.text);
-    await prefs.setString('city', cityController.text);
-    await prefs.setString('username', usernameController.text);
-    await prefs.setString('password', passwordController.text);
+    await prefs.setString('name_$_username', _nameController.text);
+    await prefs.setString('surname_$_username', _surnameController.text);
+    await prefs.setString('email_$_username', _emailController.text);
+    await prefs.setString('birthDate_$_username', _birthDateController.text);
+    await prefs.setString('birthPlace_$_username', _birthPlaceController.text);
+    await prefs.setString('city_$_username', _cityController.text);
 
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -96,13 +96,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   tooltip: 'Çıkış Yap',
                 ),
               ),
-              _buildTextField("Ad Soyad", fullNameController),
-              _buildTextField("E-posta", emailController),
-              _buildTextField("Doğum Tarihi", birthDateController),
-              _buildTextField("Doğum Yeri", birthPlaceController),
-              _buildTextField("Yaşadığı İl", cityController),
-              _buildTextField("Kullanıcı Adı", usernameController),
-              _buildTextField("Şifre", passwordController, obscure: true),
+              _buildTextField("Ad", _nameController),
+              _buildTextField("Soyad", _surnameController),
+              _buildTextField("E-posta", _emailController),
+              _buildDateField("Doğum Tarihi", _birthDateController),
+              _buildTextField("Doğum Yeri", _birthPlaceController),
+              _buildTextField("Yaşadığı İl", _cityController),
               const SizedBox(height: 16),
               Text("Doğru Sayısı: $correct", style: _textStyle()),
               const SizedBox(height: 8),
@@ -123,7 +122,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {bool obscure = false}) {
+  Widget _buildTextField(String label, TextEditingController controller,
+      {bool obscure = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
@@ -135,13 +135,41 @@ class _ProfilePageState extends State<ProfilePage> {
           fillColor: const Color(0xFFFFECB3),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) return "$label boş olamaz";
-          return null;
-        },
+        validator: (value) =>
+        value == null || value.isEmpty ? "$label boş olamaz" : null,
       ),
     );
   }
 
-  TextStyle _textStyle() => const TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
+  Widget _buildDateField(String label, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextFormField(
+        controller: controller,
+        readOnly: true,
+        decoration: InputDecoration(
+          labelText: label,
+          filled: true,
+          fillColor: const Color(0xFFFFECB3),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        ),
+        onTap: () async {
+          DateTime? picked = await showDatePicker(
+            context: context,
+            initialDate: DateTime(2000),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now(),
+          );
+          if (picked != null) {
+            controller.text = picked.toIso8601String().split('T')[0];
+          }
+        },
+        validator: (value) =>
+        value == null || value.isEmpty ? "$label boş olamaz" : null,
+      ),
+    );
+  }
+
+  TextStyle _textStyle() =>
+      const TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
 }

@@ -19,14 +19,14 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _cityController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  bool _isCreatingAccount = false;
 
   void _validateLogin() async {
     if (_formKey.currentState!.validate()) {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
-      bool isValid =
-      await PreferencesService().validateCredentials(username, password);
+      bool isValid = await PreferencesService().validateCredentials(username, password);
 
       if (isValid) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -42,6 +42,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _createAccount() async {
+    if (!_isCreatingAccount) {
+      setState(() {
+        _isCreatingAccount = true;
+      });
+      return;
+    }
+
     if (_formKey.currentState!.validate()) {
       String username = _usernameController.text;
       String password = _passwordController.text;
@@ -60,6 +67,10 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Hesap oluşturuldu!")),
       );
+
+      setState(() {
+        _isCreatingAccount = false;
+      });
     }
   }
 
@@ -88,45 +99,46 @@ class _LoginPageState extends State<LoginPage> {
                 _buildTextField("Şifre", _passwordController, obscure: true),
                 const SizedBox(height: 12),
 
-                _buildTextField("Ad", _nameController),
-                const SizedBox(height: 12),
-                _buildTextField("Soyad", _surnameController),
-                const SizedBox(height: 12),
-                _buildTextField("E-posta", _emailController),
-                const SizedBox(height: 12),
-                _buildTextField("Doğum Yeri", _birthPlaceController),
-                const SizedBox(height: 12),
+                if (_isCreatingAccount) ...[
+                  _buildTextField("Ad", _nameController),
+                  const SizedBox(height: 12),
+                  _buildTextField("Soyad", _surnameController),
+                  const SizedBox(height: 12),
+                  _buildTextField("E-posta", _emailController),
+                  const SizedBox(height: 12),
+                  _buildTextField("Doğum Yeri", _birthPlaceController),
+                  const SizedBox(height: 12),
 
-                TextFormField(
-                  controller: _birthDateController,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: "Doğum Tarihi",
-                    filled: true,
-                    fillColor: const Color(0xFFFFECB3),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                  TextFormField(
+                    controller: _birthDateController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      labelText: "Doğum Tarihi",
+                      filled: true,
+                      fillColor: const Color(0xFFFFECB3),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                     ),
+                    onTap: () async {
+                      DateTime? picked = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime(2000),
+                        firstDate: DateTime(1900),
+                        lastDate: DateTime.now(),
+                      );
+                      if (picked != null) {
+                        _birthDateController.text = picked.toIso8601String().split('T')[0];
+                      }
+                    },
+                    validator: (value) =>
+                    value == null || value.isEmpty ? "Doğum tarihi boş olamaz" : null,
                   ),
-                  onTap: () async {
-                    DateTime? picked = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime(2000),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
-                    );
-                    if (picked != null) {
-                      _birthDateController.text =
-                      picked.toIso8601String().split('T')[0];
-                    }
-                  },
-                  validator: (value) =>
-                  value == null || value.isEmpty ? "Doğum tarihi boş olamaz" : null,
-                ),
-                const SizedBox(height: 12),
+                  const SizedBox(height: 12),
 
-                _buildTextField("Yaşadığı İl", _cityController),
-                const SizedBox(height: 24),
+                  _buildTextField("Yaşadığı İl", _cityController),
+                  const SizedBox(height: 24),
+                ],
 
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -152,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   onPressed: _createAccount,
-                  child: const Text("Hesap Oluştur"),
+                  child: Text(_isCreatingAccount ? "Kaydı Tamamla" : "Hesap Oluştur"),
                 ),
               ],
             ),
