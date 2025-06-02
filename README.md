@@ -186,10 +186,10 @@ http: ^0.13.5
 
 ## 👥 Grup Üyeleri ve Katkıları
 
-| Grup Üyesi                 | Katkılar                                                                      |
-| -------------------------- | ----------------------------------------------------------------------------- |
-| **Erva Eski**              | Oyun sayfaları (toplama, çıkarma, çarpma, bölme) ve ana sayfa tasarımı        |
-| **Sümeyye Berfin Korkmaz** | Login sistemi, skor takibi, Drawer menüsü, UI tasarımı, test ve hata ayıklama |
+| Grup Üyesi                 | Katkılar                                                                                         |
+| -------------------------- |--------------------------------------------------------------------------------------------------|
+| **Erva Eski**              | Oyun sayfaları (toplama, çıkarma, çarpma, bölme) ve ana sayfa tasarımı                           |
+| **Sümeyye Berfin Korkmaz** | Login sistemi, skor takibi, Drawer menüsü,Shared Preferences, UI tasarımı, test ve hata ayıklama |
 
 ---
 
