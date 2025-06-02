@@ -2,13 +2,13 @@
 
 Math Game for Kids, çocuklara matematiği eğlenceli ve öğretici bir şekilde öğretmeyi amaçlayan Flutter tabanlı bir mobil uygulamadır. Uygulama; toplama, çıkarma, çarpma ve bölme işlemlerini oyun yoluyla sunarken, kullanıcıların skorlarını da kişisel olarak takip eder.
 
-⸻
+---
 
 🎯 Projenin Amacı
 
 Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle matematik işlemlerini oyunlaştırarak öğretmek, aynı zamanda her kullanıcı için kişisel başarı takibi yapılmasını sağlamaktır.
 
-⸻
+---
 
 🛠️ Kullanılan Teknolojiler
 •	Flutter: Uygulamanın temel geliştirme platformu
@@ -16,7 +16,7 @@ Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle 
 •	HTTP: Logo verilerinin API üzerinden alınması
 •	Dart: Flutter uygulama dili
 
-⸻
+---
 
 🌟 Öne Çıkan Özellikler
 •	✨ Her kullanıcıya özel doğru/yanlış skor kaydı
@@ -27,7 +27,7 @@ Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle 
 •	🌐 Dış kaynaklı API’den dinamik logo yükleme
 •	🧲 Dört işlem türüne özel oyun ekranları
 
-⸻
+---
 
 📁 Proje Yapısı
 
@@ -50,7 +50,7 @@ lib/
 └── custom_drawer.dart
 ```
 
-⸻
+---
 
 🧹 Sayfaların Görevleri ve İçerikleri
 
@@ -114,7 +114,7 @@ lib/
 11. 🔘 my_button.dart
     •	Oyun sayfalarında kullanılan özel sayı butonlarını içerir.
 
-⸻
+---
 
 🧠 Skor Saklama (Shared Preferences)
 
@@ -139,7 +139,7 @@ Uygulama her kullanıcıya özel doğru ve yanlış cevap sayısını saklamak i
 shared_preferences: ^2.2.2
 
 
-⸻
+---
 
 🎨 API ile Dinamik Logo Gösterimi
 
@@ -172,9 +172,7 @@ https://67f44b66cbef97f40d2decaa.mockapi.io/logos
 http: ^0.13.5
 
 
-⸻
 
-👥 Grup Üyeleri ve Katkıları
 
 ---
 
@@ -187,7 +185,7 @@ http: ^0.13.5
 
 ---
 
-⸻
+
 
 ⚙️ Geliştirme Ortamı
 •	Flutter SDK
@@ -195,7 +193,7 @@ http: ^0.13.5
 •	Android Studio / VS Code
 •	Git & GitHub
 
-⸻
+---
 
 🔗 Proje Bağlantısı
 
