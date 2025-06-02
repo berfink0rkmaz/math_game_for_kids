@@ -176,10 +176,16 @@ http: ^0.13.5
 
 👥 Grup Üyeleri ve Katkıları
 
-Grup Üyesi	Katkılar
-Erva Eski	Oyun sayfaları (toplama, çıkarma, çarpma, bölme) ve ana sayfa tasarımı
-Sümeyye Berfin Korkmaz	Login sistemi, kullanıcı bilgileri ve skor takibi, Drawer menüsü, profil sayfası, test ve hata ayıklama
+---
 
+## 👥 Grup Üyeleri ve Katkıları
+
+| Grup Üyesi                 | Katkılar                                                                      |
+| -------------------------- | ----------------------------------------------------------------------------- |
+| **Erva Eski**              | Oyun sayfaları (toplama, çıkarma, çarpma, bölme) ve ana sayfa tasarımı        |
+| **Sümeyye Berfin Korkmaz** | Login sistemi, skor takibi, Drawer menüsü, UI tasarımı, test ve hata ayıklama |
+
+---
 
 ⸻
 
@@ -194,4 +200,3 @@ Sümeyye Berfin Korkmaz	Login sistemi, kullanıcı bilgileri ve skor takibi, Dra
 🔗 Proje Bağlantısı
 
 GitHub: https://github.com/berfink0rkmaz/math_game_for_kids.git
-        
