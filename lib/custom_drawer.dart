@@ -17,7 +17,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   void initState() {
     super.initState();
-    fetchLogo();
+    fetchLogo(); // Logo çekiliyor
   }
 
   Future<void> fetchLogo() async {
@@ -69,64 +69,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
             ),
           ),
-
-          _buildListTile(
-            icon: Icons.home,
-            label: 'Ana Sayfa',
-            route: '/home',
-            isHome: true,
-          ),
-          _buildListTile(
-            icon: Icons.add,
-            label: 'Toplama Oyunu',
-            route: '/addition',
-          ),
-          _buildListTile(
-            icon: Icons.remove,
-            label: 'Çıkarma Oyunu',
-            route: '/subtraction',
-          ),
-          _buildListTile(
-            icon: Icons.clear,
-            label: 'Çarpma Oyunu',
-            route: '/multiplication',
-          ),
-          _buildListTile(
-            icon: Icons.percent,
-            label: 'Bölme Oyunu',
-            route: '/division',
-          ),
-
-          // ↘️ Profil Sayfası butonu eklendi
-          _buildListTile(
-            icon: Icons.person,
-            label: 'Profil',
-            route: '/profile',
-          ),
-
+          _buildDrawerItem(Icons.home, 'Ana Sayfa', '/home', isHome: true),
+          _buildDrawerItem(Icons.add, 'Toplama Oyunu', '/addition'),
+          _buildDrawerItem(Icons.remove, 'Çıkarma Oyunu', '/subtraction'),
+          _buildDrawerItem(Icons.clear, 'Çarpma Oyunu', '/multiplication'),
+          _buildDrawerItem(Icons.percent, 'Bölme Oyunu', '/division'),
+          _buildDrawerItem(Icons.person, 'Profil', '/profile'),
           const Divider(),
-
-          _buildListTile(
-            icon: Icons.exit_to_app,
-            label: 'Çıkış',
-            route: '/login',
-          ),
+          _buildDrawerItem(Icons.exit_to_app, 'Çıkış', '/login'),
         ],
       ),
     );
   }
 
-  Widget _buildListTile({
-    required IconData icon,
-    required String label,
-    required String route,
-    bool isHome = false,
-  }) {
+  Widget _buildDrawerItem(IconData icon, String label, String route,
+      {bool isHome = false}) {
     return ListTile(
       leading: Icon(icon, color: Colors.black87),
       title: Text(label, style: const TextStyle(color: Colors.black87)),
       onTap: () {
-        Navigator.pop(context);
+        Navigator.pop(context); // Drawer'ı kapat
         if (isHome) {
           Navigator.of(context).pushNamedAndRemoveUntil(
             '/home',
