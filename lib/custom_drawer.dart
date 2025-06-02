@@ -11,17 +11,15 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class _CustomDrawerState extends State<CustomDrawer> {
-  // Rastgele alınacak logo URL'si
   String? logoUrl;
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    fetchLogo(); // Drawer açıldığında logo yükle
+    fetchLogo();
   }
 
-  // İnternetten rastgele logo çek
   Future<void> fetchLogo() async {
     setState(() => isLoading = true);
 
@@ -33,7 +31,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         final List<dynamic> data = jsonDecode(response.body);
 
         if (data.isNotEmpty) {
-          int randomIndex = Random().nextInt(data.length); // 0 - veri uzunluğu arasında
+          int randomIndex = Random().nextInt(data.length);
           setState(() {
             logoUrl = data[randomIndex]['logolink'];
           });
@@ -49,11 +47,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
-
+      backgroundColor: const Color(0xFFFFF3E0),
       child: Column(
         children: [
-          // Logo bölümü
           DrawerHeader(
             decoration: const BoxDecoration(color: Color(0xFFBBDEFB)),
             child: Center(
@@ -74,12 +70,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
           ),
 
-          // Menü seçenekleri
           _buildListTile(
             icon: Icons.home,
             label: 'Ana Sayfa',
             route: '/home',
-            isHome: true, // özel yönlendirme için
+            isHome: true,
           ),
           _buildListTile(
             icon: Icons.add,
@@ -102,6 +97,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
             route: '/division',
           ),
 
+          // ↘️ Profil Sayfası butonu eklendi
+          _buildListTile(
+            icon: Icons.person,
+            label: 'Profil',
+            route: '/profile',
+          ),
+
           const Divider(),
 
           _buildListTile(
@@ -114,7 +116,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
-  // Drawer için her bir buton
   Widget _buildListTile({
     required IconData icon,
     required String label,
@@ -125,15 +126,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
       leading: Icon(icon, color: Colors.black87),
       title: Text(label, style: const TextStyle(color: Colors.black87)),
       onTap: () {
-        Navigator.pop(context); // Drawer'ı kapat
+        Navigator.pop(context);
         if (isHome) {
-          // Ana sayfa: önceki sayfaları temizle
           Navigator.of(context).pushNamedAndRemoveUntil(
             '/home',
                 (Route<dynamic> route) => false,
           );
         } else {
-          // Diğer sayfalar
           Navigator.pushReplacementNamed(context, route);
         }
       },

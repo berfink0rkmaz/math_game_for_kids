@@ -3,20 +3,16 @@ import 'home_page_addition.dart';
 import 'home_page_multipication.dart';
 import 'home_page_division.dart';
 import 'home_page_substraction.dart';
+import '../util/base_page.dart'; // Ortak yapı import edildi
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFFFF3E0), // pastel şeftali
-      appBar: AppBar(
-        title: const Text("Hangi Oyunu Oynamak İstiyorsunuz?"),
-        centerTitle: true,
-        backgroundColor: const Color(0xFFBBDEFB), // pastel buz mavisi
-        foregroundColor: Colors.black87,
-      ),
+    // BasePage ile AppBar + Drawer ortak şekilde sağlanır
+    return BasePage(
+      title: "Hangi Oyunu Oynamak İstiyorsunuz?",
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
