@@ -1,17 +1,43 @@
+# 🌝 Math Game for Kids - Flutter Uygulaması
 
-# Math Game for Kids - Flutter Uygulaması
+Math Game for Kids, çocuklara matematiği eğlenceli ve öğretici bir şekilde öğretmeyi amaçlayan
+Flutter tabanlı bir mobil uygulamadır. Uygulama; toplama, çıkarma, çarpma ve bölme işlemlerini oyun 
+yoluyla sunarken, kullanıcıların skorlarını da kişisel olarak takip eder.
 
-Bu Flutter projesi, çocuklara matematiği sevdirmek ve dört işlem becerilerini oyun yoluyla geliştirmek 
-amacıyla tasarlanmıştır. Kullanıcılar toplama, çıkarma, çarpma ve bölme oyunlarıyla kendilerini 
-geliştirirken, skorlarını takip edebilirler. Uygulama, sade ve soft pastel renklerle çocuklara 
-uygun şekilde dizayn edilmiştir.
+---
+
+## 🎯 Projenin Amacı
+
+Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle matematik işlemlerini 
+oyunlaştırarak öğretmek, aynı zamanda her kullanıcı için kişisel başarı takibi yapılmasını 
+sağlamaktır.
+
+---
+
+## 🛠️ Kullanılan Teknolojiler
+
+* **Flutter**: Uygulamanın temel geliştirme platformu
+* **Shared Preferences**: Skor ve kullanıcı verilerini cihazda saklama
+* **HTTP**: Logo verilerinin API üzerinden alınması
+* **Dart**: Flutter uygulama dili
+
+---
+
+## 🌟 Öne Çıkan Özellikler
+
+* ✨ Her kullanıcıya özel doğru/yanlış skor kaydı
+* 🎨 Çocuk dostu pastel renklerle sade arayüz
+* 🔄 Drawer menüsüyle hızlı ekran geçişleri
+* 🔐 Login ve kullanıcı sistemi
+* 🌐 Dış kaynaklı API'den dinamik logo yükleme
+* 🧲 Dört işlem türüne özel oyun ekranları
 
 ---
 
 ## 📁 Proje Yapısı
 
-```
-lib/ 
+```plaintext
+lib/
 ├── main.dart
 ├── pages/
 │   ├── login_page.dart
@@ -19,84 +45,165 @@ lib/
 │   ├── home_page_addition.dart
 │   ├── home_page_substraction.dart
 │   ├── home_page_multipication.dart
-│   ├── home_page_division.dart
+│   └── home_page_division.dart
 ├── util/
 │   ├── my_button.dart
 │   ├── result_message.dart
-|   ├── const.dart
+│   └── const.dart
 ├── preferences_service.dart
-├── custom_drawer.dart
+└── custom_drawer.dart
 ```
 
 ---
 
-## 🔄 Proje Sayfaları ve Görevleri
+## 🧹 Sayfaların Görevleri ve İçerikleri
 
-- **login_page.dart**: Kullanıcı adı ve şifreyle giriş yapılmasını ve yeni hesap oluşturulmasını sağlar.
-- **home_page.dart**: Oyun seçim menüsünü barındırır. Kullanıcı buradan işlem türünü seçerek oyuna geçer.
-- **home_page_addition.dart**: Toplama oyununun oynandığı sayfa.
-- **home_page_substraction.dart**: Çıkarma oyununun oynandığı sayfa.
-- **home_page_multipication.dart**: Çarpma oyununun oynandığı sayfa.
-- **home_page_division.dart**: Bölme oyununun oynandığı sayfa.
-- **custom_drawer.dart**: Sayfalar arası geçişi sağlayan menü.
-- **my_button.dart**: Sayı tuşlarını içeren özel buton widget'ı.
-- **result_message.dart**: Sonuç mesajlarını gösteren özel popup.
-- **preferences_service.dart**: Kullanıcı verilerini kaydetme ve yükleme işlemlerini yönetir.
+### 1. 🔐 `login_page.dart`
+
+* Kullanıcı adı ve şifre ile giriş yapılmasını sağlar.
+* Yeni kullanıcı oluşturma imkânı sunar.
+* Giriş sonrası kullanıcıyı ana sayfaya yönlendirir.
+* Veriler `SharedPreferences` ile saklanır.
+
+### 2. 🏠 `home_page.dart`
+
+* Kullanıcının işlemlerden birini seçmesini sağlar (toplama, çıkarma, çarpma, bölme).
+* Drawer menüsü ile tüm sayfalara geçiş imkânı sunar.
+* Renkli butonlarla sade ve çekici arayüz sunar.
+
+### 3. ➕ `home_page_addition.dart`
+
+* Toplama işlemleriyle ilgili oyun ekranıdır.
+* Rastgele 2 sayı üretir.
+* Kullanıcıdan cevap alır ve doğru/yanlış kontrolü yapar.
+* Skoru günceller ve sonucu popup olarak gösterir.
+
+### 4. ➖ `home_page_substraction.dart`
+
+* Çıkarma işlemleri için oyun ekranıdır.
+* Kullanıcı cevabını girdikten sonra skorlar güncellenir.
+
+### 5. ✖️ `home_page_multipication.dart`
+
+* Çarpma işlemleri için oyun ekranı sunar.
+* Doğru/yanlış sayıları kullanıcıya özel olarak tutulur.
+
+### 6. ➗ `home_page_division.dart`
+
+* Bölme işlemleri için oyun ekranıdır.
+* Kalansız işlemler için uygun sayı üretimi yapar.
+
+### 7. ✅ `result_message.dart`
+
+* Her işlem sonunda çıkan "Doğru!" veya "Yanlış!" popup mesajını gösterir.
+
+### 8. 🎟️ `custom_drawer.dart`
+
+* Drawer menüsü ile sayfalar arasında geçiş sağlar.
+* Dinamik logo gösterimi içerir.
+
+### 9. ⚙️ `preferences_service.dart`
+
+* `SharedPreferences` üzerinden skor ve kullanıcı oturum bilgilerini kaydeder.
+* Girişte otomatik tanıma yapar.
+
+### 10. 🔘 `my_button.dart`
+
+* Oyun sayfalarında kullanılan özel sayı butonlarını içerir.
 
 ---
 
-## 🎨 Drawer Menüdeki Logo ve API Bilgisi
+## 🧠 Skor Saklama (Shared Preferences)
 
-Drawer menüsünde uygulamamız içi tasarladığımız 3 logoyu rastgele seçilerekrek görüntülenir. Bu logolar,
-'https://67f44b66cbef97f40d2decaa.mockapi.io/logos' API'si kullanılarak dinamik olarak yüklenmektedir.
+Uygulama her kullanıcıya özel doğru ve yanlış cevap sayısını saklamak için `shared_preferences` 
+paketini kullanır. Bu sayede, aynı cihazda birden fazla kullanıcıya ait skor bilgileri ayrı ayrı 
+tutulabilir.
 
-API adresi örneği:
+### 📦 Kullanım Amacı:
+
+* Her işlem türüne (toplama, çıkarma, çarpma, bölme) ait doğru/yanlış sayısı kaydedilir.
+* Skorlar, kullanıcı adı temel alınarak cihazda lokal olarak saklanır.
+
+### 🔐 Örnek Veri Saklama Formatı:
+
+```json
+{
+  "username": "berfin",
+  "toplama_dogru": 8,
+  "toplama_yanlis": 2,
+  "carpma_dogru": 5,
+  "carpma_yanlis": 1
+}
 ```
-'https://67f44b66cbef97f40d2decaa.mockapi.io/logos'
-```
-Bu sayede her uygulama açılışında farklı bir logo görüntülenir.
 
----
+### 🛠️ Kullanılan Paket:
 
-## 🔐 Login Bilgileri Nasıl Saklanıyor?
-
-Kullanıcı adı, şifre ve skor verileri `shared_preferences` paketi ile **cihazda lokal olarak** saklanır.
-Ayrıca her kullanıcıya özel skor takibi yapılması için veriler anahtar-değer çiftleri şeklinde 
-kaydedilir.
-
-Kullanılan paket:
 ```yaml
 shared_preferences: ^2.2.2
 ```
 
 ---
 
-## 💼 Grup Üye Katkıları
+## 🎨 API ile Dinamik Logo Gösterimi
 
-| Grup Üyesi        | Katkılar                                                                          |
-|      Erva Eski        | Projenin toplama,çıkarma,bölme,çarma sayfalarını ve home sayfasını yapan kişi |
-|Sümeyye Berfin Korkmaz | Projenin UI tasarımını,drawerını yapan, skor sistemi ve login mantığını kuran |
-                         |ve hata ayıklama, test süreçlerini yapan kişi                                 |
-> Tüm proje aslında birlikte geliştirilmiştir. Birçok yerde birbirimize yardım ettik ve fikir
-alışverişinde bulunduk.
+Uygulama, açılışta `Drawer` menüsünde rastgele bir logo göstermek için **MockAPI** üzerinden veri 
+çeker. Bu logo her açılışta dinamik olarak değişir.
+
+### 🌍 Kullanılan API Adresi:
+
+```text
+https://67f44b66cbef97f40d2decaa.mockapi.io/logos
+```
+
+### 🔮 API'den Veri Çekme Adımları:
+
+1. Uygulama başlatıldığında Drawer bileşeninde API çağrısı yapılır.
+2. JSON formatındaki logo verisi çekilir.
+3. Liste içinden rastgele bir logo seçilir ve ekrana basılır.
+
+### 📄 Örnek JSON Yanıtı:
+
+```json
+[
+  {
+    "id": "1",
+    "imageUrl": "https://cdn-icons-png/logo1.png"
+  },
+  {
+    "id": "2",
+    "imageUrl": "https://cdn-icons-png/logo2.png"
+  }
+]
+```
+
+### 📦 Kullanılan Paket:
+
+```yaml
+http: ^0.13.5
+```
 
 ---
 
-## 🌟 Öne Çıkan Özellikler
+## 👥 Grup Üyeleri ve Katkıları
 
-- ✨ **Kullanıcıya özel skor kaydı** (her kullanıcının doğru/yanlış verileri ayrı tutulur)
-- 💪 Çocuk dostu **soft pastel tema** ve sade arayüz
-- ⇄ Drawer menü ile kolay sayfa geçişi
-- 🌐 Logo için dış kaynaklı dinamik API kullanımı
-- 🛠️ Shared Preferences ile login ve skor verisi saklama
+| Grup Üyesi                 | Katkılar                                                                      |
+| -------------------------- | ----------------------------------------------------------------------------- |
+| **Erva Eski**              | Oyun sayfaları (toplama, çıkarma, çarpma, bölme) ve ana sayfa tasarımı        |
+| **Sümeyye Berfin Korkmaz** | Login sistemi, skor takibi, Drawer menüsü, UI tasarımı, test ve hata ayıklama |
 
 ---
 
-## 🧠 Yaratıcı ve Özgün Yaklaşım
+## ⚙️ Geliştirme Ortamı
 
-- Uygulama sıradan bir matematik oyunundan ziyade, **kullanıcıya özel veri saklayan** ve 
-**her işleme özgü tasarımlar sunan** bir yapıya sahiptir.
-- Renklerin soft ve dikkat dağıtmayan şekilde kullanılması çocuk psikolojisi gözetilerek planlanmıştır.
-- Rastgele logo özelliği ile her açılışta farklı bir görsel sunularak ilgi çekicilik artırılmıştır.
+* Flutter SDK
+* Dart
+* Android Studio / VS Code
+* Git & GitHub
+
+---
+
+## 🔗 Proje Bağlantısı
+
+GitHub: [https://github.com/kullanici-adi/math\_game\_for\_kids](https://github.com/kullanici-adi/math_game_for_kids)
 
 ---
