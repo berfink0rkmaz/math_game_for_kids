@@ -11,6 +11,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _birthPlaceController = TextEditingController();
+  final TextEditingController _birthDateController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   void _validateLogin() async {
@@ -18,7 +25,8 @@ class _LoginPageState extends State<LoginPage> {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
-      bool isValid = await PreferencesService().validateCredentials(username, password);
+      bool isValid =
+      await PreferencesService().validateCredentials(username, password);
 
       if (isValid) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -38,7 +46,16 @@ class _LoginPageState extends State<LoginPage> {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
-      await PreferencesService().saveCredentials(username, password);
+      await PreferencesService().saveCredentials(
+        username: username,
+        password: password,
+        name: _nameController.text,
+        surname: _surnameController.text,
+        email: _emailController.text,
+        birthPlace: _birthPlaceController.text,
+        birthDate: _birthDateController.text,
+        city: _cityController.text,
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Hesap oluşturuldu!")),
@@ -66,43 +83,49 @@ class _LoginPageState extends State<LoginPage> {
                 const Icon(Icons.person_pin, size: 100, color: Color(0xFF2E7D32)),
                 const SizedBox(height: 20),
 
-                TextFormField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xFFFFECB3),
-                    labelText: "Kullanıcı Adı",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Kullanıcı adı boş olamaz';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
+                _buildTextField("Kullanıcı Adı", _usernameController),
+                const SizedBox(height: 12),
+                _buildTextField("Şifre", _passwordController, obscure: true),
+                const SizedBox(height: 12),
+
+                _buildTextField("Ad", _nameController),
+                const SizedBox(height: 12),
+                _buildTextField("Soyad", _surnameController),
+                const SizedBox(height: 12),
+                _buildTextField("E-posta", _emailController),
+                const SizedBox(height: 12),
+                _buildTextField("Doğum Yeri", _birthPlaceController),
+                const SizedBox(height: 12),
 
                 TextFormField(
-                  controller: _passwordController,
-                  obscureText: true,
+                  controller: _birthDateController,
+                  readOnly: true,
                   decoration: InputDecoration(
+                    labelText: "Doğum Tarihi",
                     filled: true,
                     fillColor: const Color(0xFFFFECB3),
-                    labelText: "Şifre",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Şifre boş olamaz';
+                  onTap: () async {
+                    DateTime? picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime(2000),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+                    if (picked != null) {
+                      _birthDateController.text =
+                      picked.toIso8601String().split('T')[0];
                     }
-                    return null;
                   },
+                  validator: (value) =>
+                  value == null || value.isEmpty ? "Doğum tarihi boş olamaz" : null,
                 ),
+                const SizedBox(height: 12),
+
+                _buildTextField("Yaşadığı İl", _cityController),
                 const SizedBox(height: 24),
 
                 ElevatedButton(
@@ -136,6 +159,24 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildTextField(String label, TextEditingController controller,
+      {bool obscure = false}) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscure,
+      decoration: InputDecoration(
+        labelText: label,
+        filled: true,
+        fillColor: const Color(0xFFFFECB3),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      validator: (value) =>
+      value == null || value.isEmpty ? '$label boş olamaz' : null,
     );
   }
 }

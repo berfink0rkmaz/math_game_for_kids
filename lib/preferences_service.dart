@@ -1,25 +1,35 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesService {
-  // Kullanıcı adı ve şifreyi kaydetme (kullanıcıya özel saklama)
-  Future<void> saveCredentials(String username, String password) async {
+  // Kullanıcı adı ve şifreyi kaydetme + ekstra bilgiler
+  Future<void> saveCredentials({
+    required String username,
+    required String password,
+    required String name,
+    required String surname,
+    required String email,
+    required String birthPlace,
+    required String birthDate,
+    required String city,
+  }) async {
     final prefs = await SharedPreferences.getInstance();
 
-    // Kullanıcıyı kullanıcı listesine ekle
     List<String> users = prefs.getStringList('users') ?? [];
     if (!users.contains(username)) {
       users.add(username);
       await prefs.setStringList('users', users);
     }
 
-    // Şifreyi kullanıcıya özel sakla
     await prefs.setString('password_$username', password);
-
-    // O anki kullanıcıyı sakla
+    await prefs.setString('name_$username', name);
+    await prefs.setString('surname_$username', surname);
+    await prefs.setString('email_$username', email);
+    await prefs.setString('birthPlace_$username', birthPlace);
+    await prefs.setString('birthDate_$username', birthDate);
+    await prefs.setString('city_$username', city);
     await prefs.setString('currentUser', username);
   }
 
-  // Giriş yapan kullanıcıyı doğrulama
   Future<bool> validateCredentials(String username, String password) async {
     final prefs = await SharedPreferences.getInstance();
     String? storedPassword = prefs.getString('password_$username');
@@ -31,7 +41,6 @@ class PreferencesService {
     return false;
   }
 
-  // Şu an giriş yapmış kullanıcı bilgilerini yükle
   Future<Map<String, String?>> loadCredentials() async {
     final prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('currentUser');
@@ -43,14 +52,24 @@ class PreferencesService {
     };
   }
 
-  // Kullanıcıya özel doğru/yanlış skorunu kaydet
+  Future<Map<String, String>> loadUserInfo(String username) async {
+    final prefs = await SharedPreferences.getInstance();
+    return {
+      'name': prefs.getString('name_$username') ?? '',
+      'surname': prefs.getString('surname_$username') ?? '',
+      'email': prefs.getString('email_$username') ?? '',
+      'birthPlace': prefs.getString('birthPlace_$username') ?? '',
+      'birthDate': prefs.getString('birthDate_$username') ?? '',
+      'city': prefs.getString('city_$username') ?? '',
+    };
+  }
+
   Future<void> saveScoreForUser(String username, int correct, int wrong) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('correctCount_$username', correct);
     await prefs.setInt('wrongCount_$username', wrong);
   }
 
-  // Kullanıcıya özel doğru/yanlış skorunu yükle
   Future<Map<String, int>> loadScoreForUser(String username) async {
     final prefs = await SharedPreferences.getInstance();
     return {
