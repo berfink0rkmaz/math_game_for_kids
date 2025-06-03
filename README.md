@@ -61,6 +61,7 @@ lib/
 * Yeni kullanıcı oluşturma imkânı sunar.
 * Giriş sonrası kullanıcıyı ana sayfaya yönlendirir.
 * Veriler SharedPreferences ile saklanır.
+*  
   ![Login Sayfası](lib/images/login_page.jpeg)
   ![Login Sayfası_Hesap_Olustur](lib/images/loginpage_hesapolustur.jpeg)
 
