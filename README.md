@@ -55,62 +55,70 @@ lib/
 
 ## 🧹 Sayfaların Görevleri ve İçerikleri
 
-### 1. 🔐 login_page.dart ![Login Sayfası](lib/images/login_page.jpeg)
-   ![Login Sayfası_Hesap_Olustur](lib/images/loginpage_hesapolustur.jpeg)
+### 1. 🔐 login_page.dart 
 
 * Kullanıcı adı ve şifre ile giriş yapılmasını sağlar.
 * Yeni kullanıcı oluşturma imkânı sunar.
 * Giriş sonrası kullanıcıyı ana sayfaya yönlendirir.
 * Veriler SharedPreferences ile saklanır.
+  ![Login Sayfası](lib/images/login_page.jpeg)
+  ![Login Sayfası_Hesap_Olustur](lib/images/loginpage_hesapolustur.jpeg)
 
-### 2. 🏠 home_page.dart ![Toplama Sayfası](lib/images/home_page.jpeg)
+### 2. 🏠 home_page.dart 
 
 * Kullanıcının işlemlerden birini seçmesini sağlar (toplama, çıkarma, çarpma, bölme).
 * Drawer menüsü ile tüm sayfalara geçiş imkânı sunar.
 * Renkli butonlarla sade ve çekici arayüz sunar.
+  ![Ana Sayfa](lib/images/home_page.jpeg)
 
-### 3. ➕ home_page_addition.dart ![Toplama Sayfası](lib/images/Addition.jpeg)
+### 3. ➕ home_page_addition.dart 
 
 * Toplama işlemleriyle ilgili oyun ekranıdır.
 * Rastgele 2 sayı üretir.
 * Kullanıcıdan cevap alır ve doğru/yanlış kontrolü yapar.
 * Skoru günceller ve sonucu popup olarak gösterir.
+  ![Toplama Sayfası](lib/images/Addition.jpeg)
 
-### 4. ➖ home_page_substraction.dart ![Toplama Sayfası](lib/images/substraction.jpeg)
+### 4. ➖ home_page_substraction.dart 
 
 * Çıkarma işlemleri için oyun ekranıdır.
 * Kullanıcı cevabını girdikten sonra skorlar güncellenir.
+  ![Cıkarma Sayfası](lib/images/substraction.jpeg)
 
-### 5. ✖️ home_page_multipication.dart ![Toplama Sayfası](lib/images/multipication.jpeg)
+### 5. ✖️ home_page_multipication.dart 
 
 * Çarpma işlemleri için oyun ekranı sunar.
 * Doğru/yanlış sayıları kullanıcıya özel olarak tutulur.
+  ![Carpma Sayfası](lib/images/multipication.jpeg)
 
-### 6. ➗ home_page_division.dart ![Toplama Sayfası](lib/images/division.jpeg)
+### 6. ➗ home_page_division.dart 
 
 * Bölme işlemleri için oyun ekranıdır.
 * Kalansız işlemler için uygun sayı üretimi yapar.
+  ![Bolme Sayfası](lib/images/division.jpeg)
 
 ### 7. ✅ result_message.dart
 
 * Her işlem sonunda çıkan "Doğru!" veya "Yanlış!" popup mesajını gösterir.
 
-### 8. 🎟️ custom_drawer.dart ![Toplama Sayfası](lib/images/drawer.jpeg)
+### 8. 🎟️ custom_drawer.dart 
 
 * Drawer menüsü ile sayfalar arasında geçiş sağlar.
 * Dinamik logo gösterimi içerir.
 * Profil sayfasına geçiş içerir.
+  ![Drawer Sayfası](lib/images/drawer.jpeg)
 
 ### 9. ⚙️ preferences_service.dart
 * SharedPreferences üzerinden skor ve kullanıcı oturum bilgilerini kaydeder.
 * Her kullanıcı için adı, soyadı, e-posta, doğum bilgileri gibi bilgileri de saklar.
 * Girişte otomatik tanıma yapar.
 
-### 10. 👤 profile_page.dart ![Profil Sayfası](lib/images/profile_page.jpeg)
+### 10. 👤 profile_page.dart 
 
 * Kullanıcının kişisel bilgilerini görüp düzenleyebildiği ekran
 * Doğru ve yanlış sayısını gösterir
 * Bilgileri güncelleyip kaydetme özelliği içerir
+  ![Profil Sayfası](lib/images/profile_page.jpeg)
 
 ### 11. 🔘 my_button.dart
 * Oyun sayfalarında kullanılan özel sayı butonlarını içerir.
