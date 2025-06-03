@@ -210,3 +210,5 @@ http: ^0.13.5
 
 
 GitHub: https://github.com/berfink0rkmaz/math_game_for_kids.git
+ Test etmeniz için kullanıcı adı:SBK
+                           şifre: 1234
