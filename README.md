@@ -70,6 +70,7 @@ lib/
 * Kullanıcının işlemlerden birini seçmesini sağlar (toplama, çıkarma, çarpma, bölme).
 * Drawer menüsü ile tüm sayfalara geçiş imkânı sunar.
 * Renkli butonlarla sade ve çekici arayüz sunar.
+* 
   ![Ana Sayfa](lib/images/home_page.jpeg)
 
 ### 3. ➕ home_page_addition.dart 
@@ -78,24 +79,28 @@ lib/
 * Rastgele 2 sayı üretir.
 * Kullanıcıdan cevap alır ve doğru/yanlış kontrolü yapar.
 * Skoru günceller ve sonucu popup olarak gösterir.
+* 
   ![Toplama Sayfası](lib/images/Addition.jpeg)
 
 ### 4. ➖ home_page_substraction.dart 
 
 * Çıkarma işlemleri için oyun ekranıdır.
 * Kullanıcı cevabını girdikten sonra skorlar güncellenir.
+* 
   ![Cıkarma Sayfası](lib/images/substraction.jpeg)
 
 ### 5. ✖️ home_page_multipication.dart 
 
 * Çarpma işlemleri için oyun ekranı sunar.
 * Doğru/yanlış sayıları kullanıcıya özel olarak tutulur.
+* 
   ![Carpma Sayfası](lib/images/multipication.jpeg)
 
 ### 6. ➗ home_page_division.dart 
 
 * Bölme işlemleri için oyun ekranıdır.
 * Kalansız işlemler için uygun sayı üretimi yapar.
+* 
   ![Bolme Sayfası](lib/images/division.jpeg)
 
 ### 7. ✅ result_message.dart
@@ -107,6 +112,7 @@ lib/
 * Drawer menüsü ile sayfalar arasında geçiş sağlar.
 * Dinamik logo gösterimi içerir.
 * Profil sayfasına geçiş içerir.
+* 
   ![Drawer Sayfası](lib/images/drawer.jpeg)
 
 ### 9. ⚙️ preferences_service.dart
@@ -119,6 +125,7 @@ lib/
 * Kullanıcının kişisel bilgilerini görüp düzenleyebildiği ekran
 * Doğru ve yanlış sayısını gösterir
 * Bilgileri güncelleyip kaydetme özelliği içerir
+* 
   ![Profil Sayfası](lib/images/profile_page.jpeg)
 
 ### 11. 🔘 my_button.dart
