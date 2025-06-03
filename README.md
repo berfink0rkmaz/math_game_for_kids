@@ -1,35 +1,36 @@
-🌝 Math Game for Kids - Flutter Uygulaması
+# 🌝 Math Game for Kids - Flutter Uygulaması
 
 Math Game for Kids, çocuklara matematiği eğlenceli ve öğretici bir şekilde öğretmeyi amaçlayan Flutter tabanlı bir mobil uygulamadır. Uygulama; toplama, çıkarma, çarpma ve bölme işlemlerini oyun yoluyla sunarken, kullanıcıların skorlarını da kişisel olarak takip eder.
 
 ---
 
-🎯 Projenin Amacı
+## 🎯 Projenin Amacı
 
 Bu projenin amacı; çocuklara yönelik sade ve kullanıcı dostu bir arayüzle matematik işlemlerini oyunlaştırarak öğretmek, aynı zamanda her kullanıcı için kişisel başarı takibi yapılmasını sağlamaktır.
 
 ---
 
-🛠️ Kullanılan Teknolojiler
-•	Flutter: Uygulamanın temel geliştirme platformu
-•	Shared Preferences: Skor ve kullanıcı verilerini cihazda saklama
-•	HTTP: Logo verilerinin API üzerinden alınması
-•	Dart: Flutter uygulama dili
+## 🛠️ Kullanılan Teknolojiler
+
+* **Flutter**: Uygulamanın temel geliştirme platformu
+* **Shared Preferences**: Skor ve kullanıcı verilerini cihazda saklama
+* **HTTP**: Logo verilerinin API üzerinden alınması
+* **Dart**: Flutter uygulama dili
 
 ---
 
-🌟 Öne Çıkan Özellikler
-•	✨ Her kullanıcıya özel doğru/yanlış skor kaydı
-•	👤 Hesap oluştururken ad, soyad, doğum tarihi, doğum yeri, e-posta ve şehir bilgileri alma
-•	🔄 Drawer menüsünden erişilebilen profil ekranı ve bilgilerde güncelleme imkânı
-•	🎨 Çocuk dostu pastel renklerle sade arayüz
-•	🔐 Login ve kullanıcı sistemi
-•	🌐 Dış kaynaklı API’den dinamik logo yükleme
-•	🧲 Dört işlem türüne özel oyun ekranları
+## 🌟 Öne Çıkan Özellikler
+
+*  Her kullanıcıya özel doğru/yanlış skor kaydı
+*  Çocuk dostu pastel renklerle sade arayüz
+*  Drawer menüsüyle hızlı ekran geçişleri
+*  Login ve kullanıcı sistemi
+*  Dış kaynaklı API'den dinamik logo yükleme
+*  Dört işlem türüne özel oyun ekranları
 
 ---
 
-📁 Proje Yapısı
+## 📁 Proje Yapısı
 
 ```plaintext
 lib/
@@ -52,79 +53,80 @@ lib/
 
 ---
 
-🧹 Sayfaların Görevleri ve İçerikleri
+## 🧹 Sayfaların Görevleri ve İçerikleri
 
-1. 🔐 login_page.dart ![Login Sayfası](lib/images/login_page.jpeg)
+### 1. 🔐 login_page.dart ![Login Sayfası](lib/images/login_page.jpeg)
    ![Login Sayfası_Hesap_Olustur](lib/images/loginpage_hesapolustur.jpeg)
 
-   •	Kullanıcı adı ve şifre ile giriş yapılmasını sağlar.
-   •	Yeni kullanıcı oluşturma imkânı sunar.
-   •	Giriş sonrası kullanıcıyı ana sayfaya yönlendirir.
-   •	Kullanıcıdan ad, soyad, doğum tarihi, doğum yeri, e-posta ve yaşadığı il gibi bilgileri alır.
-   •	Veriler SharedPreferences ile saklanır.
+* Kullanıcı adı ve şifre ile giriş yapılmasını sağlar.
+* Yeni kullanıcı oluşturma imkânı sunar.
+* Giriş sonrası kullanıcıyı ana sayfaya yönlendirir.
+* Veriler SharedPreferences ile saklanır.
 
-2. 🏠 home_page.dart ![Toplama Sayfası](lib/images/home_page.jpeg)
+### 2. 🏠 home_page.dart ![Toplama Sayfası](lib/images/home_page.jpeg)
 
-   •	Kullanıcının işlemlerden birini seçmesini sağlar (toplama, çıkarma, çarpma, bölme).
-   •	Drawer menüsü ile tüm sayfalara geçiş imkânı sunar.
-   •	Renkli butonlarla sade ve çekici arayüz sunar.
+* Kullanıcının işlemlerden birini seçmesini sağlar (toplama, çıkarma, çarpma, bölme).
+* Drawer menüsü ile tüm sayfalara geçiş imkânı sunar.
+* Renkli butonlarla sade ve çekici arayüz sunar.
 
-3. ➕ home_page_addition.dart ![Toplama Sayfası](lib/images/Addition.jpeg)
+### 3. ➕ home_page_addition.dart ![Toplama Sayfası](lib/images/Addition.jpeg)
 
-   •	Toplama işlemleriyle ilgili oyun ekranıdır.
-   •	Rastgele 2 sayı üretir.
-   •	Kullanıcıdan cevap alır ve doğru/yanlış kontrolü yapar.
-   •	Skoru günceller ve sonucu popup olarak gösterir.
+* Toplama işlemleriyle ilgili oyun ekranıdır.
+* Rastgele 2 sayı üretir.
+* Kullanıcıdan cevap alır ve doğru/yanlış kontrolü yapar.
+* Skoru günceller ve sonucu popup olarak gösterir.
 
-4. ➖ home_page_substraction.dart ![Toplama Sayfası](lib/images/substraction.jpeg)
+### 4. ➖ home_page_substraction.dart ![Toplama Sayfası](lib/images/substraction.jpeg)
 
-   •	Çıkarma işlemleri için oyun ekranıdır.
-   •	Kullanıcı cevabını girdikten sonra skorlar güncellenir.
+* Çıkarma işlemleri için oyun ekranıdır.
+* Kullanıcı cevabını girdikten sonra skorlar güncellenir.
 
-5. ✖️ home_page_multipication.dart ![Toplama Sayfası](lib/images/multipication.jpeg)
+### 5. ✖️ home_page_multipication.dart ![Toplama Sayfası](lib/images/multipication.jpeg)
 
-   •	Çarpma işlemleri için oyun ekranı sunar.
-   •	Doğru/yanlış sayıları kullanıcıya özel olarak tutulur.
+* Çarpma işlemleri için oyun ekranı sunar.
+* Doğru/yanlış sayıları kullanıcıya özel olarak tutulur.
 
-6. ➗ home_page_division.dart ![Toplama Sayfası](lib/images/division.jpeg)
+### 6. ➗ home_page_division.dart ![Toplama Sayfası](lib/images/division.jpeg)
 
-   •	Bölme işlemleri için oyun ekranıdır.
-   •	Kalansız işlemler için uygun sayı üretimi yapar.
+* Bölme işlemleri için oyun ekranıdır.
+* Kalansız işlemler için uygun sayı üretimi yapar.
 
-7. ✅ result_message.dart
-   •	Her işlem sonunda çıkan “Doğru!” veya “Yanlış!” popup mesajını gösterir.
+### 7. ✅ result_message.dart
 
-8. 🎟️ custom_drawer.dart ![Toplama Sayfası](lib/images/drawer.jpeg)
+* Her işlem sonunda çıkan "Doğru!" veya "Yanlış!" popup mesajını gösterir.
 
-   •	Drawer menüsü ile sayfalar arasında geçiş sağlar.
-   •	Dinamik logo gösterimi içerir.
-   •	Profil sayfasına geçiş içerir.
+### 8. 🎟️ custom_drawer.dart ![Toplama Sayfası](lib/images/drawer.jpeg)
 
-9. ⚙️ preferences_service.dart
-   •	SharedPreferences üzerinden skor ve kullanıcı oturum bilgilerini kaydeder.
-   •	Her kullanıcı için adı, soyadı, e-posta, doğum bilgileri gibi bilgileri de saklar.
-   •	Girişte otomatik tanıma yapar.
+* Drawer menüsü ile sayfalar arasında geçiş sağlar.
+* Dinamik logo gösterimi içerir.
+* Profil sayfasına geçiş içerir.
 
-10. 👤 profile_page.dart ![Profil Sayfası](lib/images/profile_page.jpeg)
+### 9. ⚙️ preferences_service.dart
+* SharedPreferences üzerinden skor ve kullanıcı oturum bilgilerini kaydeder.
+* Her kullanıcı için adı, soyadı, e-posta, doğum bilgileri gibi bilgileri de saklar.
+* Girişte otomatik tanıma yapar.
 
-    •	Kullanıcının kişisel bilgilerini görüp düzenleyebildiği ekran
-    •	Doğru ve yanlış sayısını gösterir
-    •	Bilgileri güncelleyip kaydetme özelliği içerir
+### 10. 👤 profile_page.dart ![Profil Sayfası](lib/images/profile_page.jpeg)
 
-11. 🔘 my_button.dart
-    •	Oyun sayfalarında kullanılan özel sayı butonlarını içerir.
+* Kullanıcının kişisel bilgilerini görüp düzenleyebildiği ekran
+* Doğru ve yanlış sayısını gösterir
+* Bilgileri güncelleyip kaydetme özelliği içerir
+
+### 11. 🔘 my_button.dart
+* Oyun sayfalarında kullanılan özel sayı butonlarını içerir.
 
 ---
 
-🧠 Skor Saklama (Shared Preferences)
+##  Skor Saklama (Shared Preferences)
 
 Uygulama her kullanıcıya özel doğru ve yanlış cevap sayısını saklamak için shared_preferences paketini kullanır. Bu sayede, aynı cihazda birden fazla kullanıcıya ait skor bilgileri ayrı ayrı tutulabilir.
 
-📦 Kullanım Amacı:
-•	Her işlem türüne (toplama, çıkarma, çarpma, bölme) ait doğru/yanlış sayısı kaydedilir.
-•	Skorlar, kullanıcı adı temel alınarak cihazda lokal olarak saklanır.
+###  Kullanım Amacı:
 
-🔐 Örnek Veri Saklama Formatı:
+* Her işlem türüne (toplama, çıkarma, çarpma, bölme) ait doğru/yanlış sayısı kaydedilir.
+* Skorlar, kullanıcı adı temel alınarak cihazda lokal olarak saklanır.
+
+### 🔐 Örnek Veri Saklama Formatı:
 
 {
 "username": "berfin",
@@ -134,27 +136,27 @@ Uygulama her kullanıcıya özel doğru ve yanlış cevap sayısını saklamak i
 "carpma_yanlis": 1
 }
 
-🛠️ Kullanılan Paket:
-
+### 📦 Kullanılan Paket:
 shared_preferences: ^2.2.2
 
 
 ---
 
-🎨 API ile Dinamik Logo Gösterimi
+##  API ile Dinamik Logo Gösterimi
 
-Uygulama, açılışta Drawer menüsünde rastgele bir logo göstermek için MockAPI üzerinden veri çeker. Bu logo her açılışta dinamik olarak değişir.
+Uygulama, açılışta Drawer menüsünde rastgele bir logo göstermek için **MockAPI** üzerinden veri çeker. Bu logo her açılışta dinamik olarak değişir.
 
-🌍 Kullanılan API Adresi:
+###  Kullanılan API Adresi:
 
 https://67f44b66cbef97f40d2decaa.mockapi.io/logos
 
-🔮 API’den Veri Çekme Adımları:
-1.	Uygulama başlatıldığında Drawer bileşeninde API çağrısı yapılır.
-2.	JSON formatındaki logo verisi çekilir.
-3.	Liste içinden rastgele bir logo seçilir ve ekrana basılır.
+###  API'den Veri Çekme Adımları:
 
-📄 Örnek JSON Yanıtı:
+1. Uygulama başlatıldığında Drawer bileşeninde API çağrısı yapılır.
+2. JSON formatındaki logo verisi çekilir.
+3. Liste içinden rastgele bir logo seçilir ve ekrana basılır.
+
+### 📄 Örnek JSON Yanıtı:
 
 [
 {
@@ -167,8 +169,7 @@ https://67f44b66cbef97f40d2decaa.mockapi.io/logos
 }
 ]
 
-📦 Kullanılan Paket:
-
+### 📦 Kullanılan Paket:
 http: ^0.13.5
 
 
@@ -187,14 +188,16 @@ http: ^0.13.5
 
 
 
-⚙️ Geliştirme Ortamı
-•	Flutter SDK
-•	Dart
-•	Android Studio / VS Code
-•	Git & GitHub
+##  Geliştirme Ortamı
+
+* Flutter SDK
+* Dart
+* Android Studio / VS Code
+* Git & GitHub
 
 ---
 
-🔗 Proje Bağlantısı
+## 🔗 Proje Bağlantısı
+
 
 GitHub: https://github.com/berfink0rkmaz/math_game_for_kids.git
